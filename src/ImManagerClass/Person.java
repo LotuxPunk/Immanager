@@ -2,23 +2,19 @@ package ImManagerClass;
 
 public class Person
 {
-
-    private int id;
     private String firstName;
     private String lastName;
     private String registre;
     private String adress;
 
     /**
-     * @param id
      * @param firstName
      * @param lastName
      * @param registre
      * @param adress
      */
-    public Person (int id, String firstName, String lastName, String registre, String adress)
+    public Person (String firstName, String lastName, String registre, String adress)
     {
-        this.id = id;
         setFirstName(firstName);
         setLastName(lastName);
         setRegistre(registre);
