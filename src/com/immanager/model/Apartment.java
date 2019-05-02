@@ -1,4 +1,4 @@
-package com.immanager.model.entity;
+package com.immanager.model;
 
 public class Apartment {
     private String name;

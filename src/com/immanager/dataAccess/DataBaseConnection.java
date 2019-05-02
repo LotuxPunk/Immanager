@@ -1,4 +1,4 @@
-package com.immanager.model;
+package com.immanager.dataAccess;
 
 import java.sql.Connection;
 import java.sql.DriverManager;

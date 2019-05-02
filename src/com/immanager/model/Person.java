@@ -1,4 +1,4 @@
-package com.immanager.model.entity;
+package com.immanager.model;
 
 public class Person {
     private String firstName;
