@@ -19,7 +19,7 @@ public final class DataBaseConnection {
 
         try {
             Class.forName(driver).newInstance();
-            this.connection = (Connection)DriverManager.getConnection(url+dbName,username,password);
+            this.connection = DriverManager.getConnection(url+dbName,username,password);
         }
         catch (Exception sqlE){
             sqlE.printStackTrace();
