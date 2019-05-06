@@ -6,8 +6,8 @@ import java.util.GregorianCalendar;
 public class Contract {
     private GregorianCalendar dateStart;
     private GregorianCalendar dateEnd;
-    private double warranty;
-    private boolean cpasWarranty;
+    private Double warranty;
+    private Boolean cpasWarranty;
     private Person guarantee1;
     private Person guarantee2;
     private Person renter;

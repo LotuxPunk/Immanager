@@ -3,8 +3,8 @@ package com.immanager.model;
 import java.util.GregorianCalendar;
 
 public class RentOwed {
-    private double rent;
-    private double charge;
+    private Double rent;
+    private Double charge;
     private GregorianCalendar date;
 
     public RentOwed(double rent, double charge, GregorianCalendar date) {
