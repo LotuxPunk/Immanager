@@ -17,7 +17,7 @@ public class Contract {
     private ArrayList<RentOwed> rentOwedList;
     private ArrayList<Payment> paymentList;
 
-    public Contract(GregorianCalendar dateStart, GregorianCalendar dateEnd, double warranty, boolean cpasWarranty, Person guarantee1, Person guarantee2, Person renter, Apartment apartment, String refEnregistrement) {
+    public Contract(GregorianCalendar dateStart, GregorianCalendar dateEnd, Double warranty, Boolean cpasWarranty, Integer guarantee1, Integer guarantee2, Integer renter, Integer apartment, String refEnregistrement) {
         setDateStart(dateStart);
         setDateEnd(dateEnd);
         setWarranty(warranty);
@@ -67,32 +67,36 @@ public class Contract {
         return guarantee1;
     }
 
-    public void setGuarantee1(Person guarantee1) {
-        this.guarantee1 = guarantee1;
+    //TODO : Get the Person via DB
+    public void setGuarantee1(Integer guarantee1) {
+
     }
 
     public Person getGuarantee2() {
         return guarantee2;
     }
 
-    public void setGuarantee2(Person guarantee2) {
-        this.guarantee2 = guarantee2;
+    //TODO : Get the Person via DB
+    public void setGuarantee2(Integer guarantee2) {
+
     }
 
     public Person getRenter() {
         return renter;
     }
 
-    public void setRenter(Person renter) {
-        this.renter = renter;
+    //TODO : Get the Person via DB
+    public void setRenter(Integer renter) {
+
     }
 
     public Apartment getApartment() {
         return apartment;
     }
 
-    public void setApartment(Apartment apartment) {
-        this.apartment = apartment;
+    //TODO : Get the Apartment via DB
+    public void setApartment(Integer apartment) {
+
     }
 
     public String getRefEnregistrement() {
