@@ -11,15 +11,13 @@ public final class DataBaseConnection {
     private static DataBaseConnection instance;
 
     private DataBaseConnection(){
-        String url = "jbdc:mysql://localhost:3306/";
+        String url = "jdbc:mysql://localhost:3306/";
         String dbName = "immanager";
-        String driver = "com.mysql.jbdc.Driver";
         String username = "root";
         String password = "vdd2019";
 
         try {
-            Class.forName(driver).newInstance();
-            this.connection = DriverManager.getConnection(url+dbName,username,password);
+            this.connection = DriverManager.getConnection(url + dbName + "?useSSL=false", username, password);
         }
         catch (Exception sqlE){
             sqlE.printStackTrace();

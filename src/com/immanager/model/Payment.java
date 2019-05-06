@@ -3,7 +3,7 @@ package com.immanager.model;
 import java.util.GregorianCalendar;
 
 public class Payment {
-    private double amount;
+    private Double amount;
     private GregorianCalendar date;
 
     public Payment (double amount, GregorianCalendar date) {
