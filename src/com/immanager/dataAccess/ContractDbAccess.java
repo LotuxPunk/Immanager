@@ -21,7 +21,10 @@ public class ContractDbAccess {
                 GregorianCalendar calendarDateEnd = new GregorianCalendar();
 
                 calendarDateStart.setTime(data.getDate("date_start"));
-                calendarDateEnd.setTime(data.getDate("date_end"));
+                if (data.getDate("date_end")!= null)
+                    calendarDateEnd.setTime(data.getDate("date_end"));
+                else
+                    calendarDateEnd = null;
 
                 Contract contract = new Contract(
                         calendarDateStart,
