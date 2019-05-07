@@ -17,7 +17,7 @@ public class Contract {
     private ArrayList<RentOwed> rentOwedList;
     private ArrayList<Payment> paymentList;
 
-    public Contract(GregorianCalendar dateStart, GregorianCalendar dateEnd, Double warranty, Boolean cpasWarranty, Integer guarantee1, Integer guarantee2, Integer renter, Integer apartment, String refEnregistrement) {
+    public Contract(GregorianCalendar dateStart, GregorianCalendar dateEnd, Double warranty, Boolean cpasWarranty, Integer guarantee1, Integer guarantee2, Person renter, Integer apartment, String refEnregistrement) {
         setDateStart(dateStart);
         setDateEnd(dateEnd);
         setWarranty(warranty);
@@ -86,8 +86,8 @@ public class Contract {
     }
 
     //TODO : Get the Person via DB
-    public void setRenter(Integer renter) {
-
+    public void setRenter(Person renter) {
+        this.renter = renter;
     }
 
     public Apartment getApartment() {
