@@ -1,6 +1,7 @@
 package com.immanager.dataAccess;
 
 import com.immanager.exception.AllContractException;
+import com.immanager.model.Apartment;
 import com.immanager.model.Contract;
 import com.immanager.model.Person;
 
@@ -9,11 +10,11 @@ import java.util.ArrayList;
 import java.util.GregorianCalendar;
 
 public class ContractDbAccess {
-    public ArrayList<Contract> getAllContracts() throws AllContractException{
+    public static ArrayList<Contract> getAllContracts() throws AllContractException{
         ArrayList<Contract> contracts = new ArrayList<>();
         Connection connection = DataBaseConnection.getInstance().getConnection();
         try {
-            String sql = "select * from contract join person on (contract.renterid = person.id)";
+            String sql = "select * from contract join person on (contract.renterid = person.id) join apartment on (contract.apartmentid = apartment.idApartement)";
             PreparedStatement statement = connection.prepareStatement(sql);
             ResultSet data = statement.executeQuery();
             ResultSetMetaData meta = data.getMetaData();
@@ -31,7 +32,14 @@ public class ContractDbAccess {
                         data.getString("firstname"),
                         data.getString("lastname"),
                         data.getString("register"),
-                        data.getString("address")
+                        data.getString("person.address")
+                );
+
+                Apartment apartment = new Apartment(
+                        data.getString("name"),
+                        data.getString("city"),
+                        data.getString("apartment.address"),
+                        data.getString("postal_code")
                 );
 
                 Contract contract = new Contract(
@@ -42,7 +50,7 @@ public class ContractDbAccess {
                         data.getInt("guarantee1"),
                         data.getInt("guarantee2"),
                         renter,
-                        data.getInt("apartmentid"),
+                        apartment,
                         data.getString("refRegistry")
                 );
 
