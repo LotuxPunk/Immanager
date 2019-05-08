@@ -2,6 +2,8 @@ package com.immanager.dataAccess;
 
 import com.immanager.dataAccess.dao.ContractDAO;
 import com.immanager.exception.AllContractException;
+import com.immanager.exception.ApartmentByIdException;
+import com.immanager.exception.PersonByIDException;
 import com.immanager.model.Apartment;
 import com.immanager.model.Contract;
 import com.immanager.model.Person;
@@ -11,14 +13,14 @@ import java.util.ArrayList;
 import java.util.GregorianCalendar;
 
 public class ContractDbAccess implements ContractDAO {
-    public ArrayList<Contract> getAllContracts() throws AllContractException{
+    public ArrayList<Contract> getAllContracts() throws AllContractException, ApartmentByIdException, PersonByIDException{
         ArrayList<Contract> contracts = new ArrayList<>();
-        Connection connection = DataBaseConnection.getInstance().getConnection();
         try {
+            Connection connection = DataBaseConnection.getInstance().getConnection();
+
             String sql = "select * from contract join person on (contract.renterid = person.id)";
             PreparedStatement statement = connection.prepareStatement(sql);
             ResultSet data = statement.executeQuery();
-            ResultSetMetaData meta = data.getMetaData();
             while(data.next()){
                 GregorianCalendar calendarDateStart = new GregorianCalendar();
                 GregorianCalendar calendarDateEnd = new GregorianCalendar();
@@ -54,6 +56,12 @@ public class ContractDbAccess implements ContractDAO {
             connection.close();
         } catch (SQLException e) {
             throw new AllContractException(e.getMessage());
+        }
+        catch (PersonByIDException e){
+            throw new PersonByIDException(e.getMessage());
+        }
+        catch (ApartmentByIdException e){
+            throw new ApartmentByIdException(e.getMessage());
         }
         finally {
             return contracts;

@@ -7,10 +7,11 @@ import com.immanager.model.Person;
 import java.sql.*;
 
 public class PersonDbAccess implements PersonDAO {
-    public Person getPersonById(Integer id) throws PersonByIDException {
+    public Person getPersonById(Integer id) throws PersonByIDException{
         Person person = null;
-        Connection connection = DataBaseConnection.getInstance().getConnection();
         try{
+            Connection connection = DataBaseConnection.getInstance().getConnection();
+
             String sql = "select * from person where id = "+id;
             PreparedStatement statement = connection.prepareStatement(sql);
             ResultSet data = statement.executeQuery();

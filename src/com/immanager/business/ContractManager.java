@@ -3,6 +3,8 @@ package com.immanager.business;
 import com.immanager.dataAccess.ContractDbAccess;
 import com.immanager.dataAccess.dao.ContractDAO;
 import com.immanager.exception.AllContractException;
+import com.immanager.exception.ApartmentByIdException;
+import com.immanager.exception.PersonByIDException;
 import com.immanager.model.Contract;
 
 import java.util.ArrayList;
@@ -14,7 +16,7 @@ public class ContractManager {
         setDataAccess(new ContractDbAccess());
     }
 
-    public ArrayList<Contract> getAllContracts() throws AllContractException {
+    public ArrayList<Contract> getAllContracts() throws AllContractException, ApartmentByIdException, PersonByIDException {
         return dataAccess.getAllContracts();
     }
 

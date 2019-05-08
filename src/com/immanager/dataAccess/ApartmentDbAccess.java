@@ -17,15 +17,15 @@ public class ApartmentDbAccess implements ApartmentDAO {
      * Method to get the apartment from the database using the flyweight pattern
      * @param id of the apartment
      * @return  the apartment from the database
-     * @throws ApartmentByIdException
      */
-    public Apartment getApartmentById(Integer id) throws ApartmentByIdException {
+    public Apartment getApartmentById(Integer id) throws ApartmentByIdException{
         if (apartmentMap.containsKey(id)){
             return apartmentMap.get(id);
         }
         Apartment apartment = null;
-        Connection connection = DataBaseConnection.getInstance().getConnection();
         try{
+            Connection connection = DataBaseConnection.getInstance().getConnection();
+
             String sql = "select * from apartment where id = "+id;
             PreparedStatement statement = connection.prepareStatement(sql);
             ResultSet data = statement.executeQuery();

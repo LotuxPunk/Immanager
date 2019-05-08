@@ -89,7 +89,7 @@ public class Contract {
     }
 
     public void setApartment(Integer apartment) throws ApartmentByIdException {
-        this.apartment = ApartmentDbAccess.getApartmentById(apartment);
+        this.apartment = new ApartmentDbAccess().getApartmentById(apartment);
     }
 
     public String getRefEnregistrement() {
@@ -118,7 +118,11 @@ public class Contract {
 
     private Person accessPersonFromDB(Integer id) throws PersonByIDException{
         if (id != null)
-            return PersonDbAccess.getPersonById(id);
+            return new PersonDbAccess().getPersonById(id);
         return null;
+    }
+
+    public Object[] toArray(){
+        return new Object[]{getApartment(), getDateStart(), getDateEnd(), getRenter(), getGuarantee1(), getGuarantee2(), getRefEnregistrement(), getWarranty()};
     }
 }
