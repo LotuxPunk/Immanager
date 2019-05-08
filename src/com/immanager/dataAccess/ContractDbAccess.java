@@ -14,7 +14,7 @@ public class ContractDbAccess {
         ArrayList<Contract> contracts = new ArrayList<>();
         Connection connection = DataBaseConnection.getInstance().getConnection();
         try {
-            String sql = "select * from contract join person on (contract.renterid = person.id) join apartment on (contract.apartmentid = apartment.idApartement)";
+            String sql = "select * from contract join person on (contract.renterid = person.id)";
             PreparedStatement statement = connection.prepareStatement(sql);
             ResultSet data = statement.executeQuery();
             ResultSetMetaData meta = data.getMetaData();
@@ -35,13 +35,6 @@ public class ContractDbAccess {
                         data.getString("person.address")
                 );
 
-                Apartment apartment = new Apartment(
-                        data.getString("name"),
-                        data.getString("city"),
-                        data.getString("apartment.address"),
-                        data.getString("postal_code")
-                );
-
                 Contract contract = new Contract(
                         calendarDateStart,
                         calendarDateEnd,
@@ -50,7 +43,7 @@ public class ContractDbAccess {
                         data.getInt("guarantee1"),
                         data.getInt("guarantee2"),
                         renter,
-                        apartment,
+                        data.getInt("apartmentid"),
                         data.getString("refRegistry")
                 );
 

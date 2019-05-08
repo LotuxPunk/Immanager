@@ -27,6 +27,7 @@ public class PersonDbAccess {
                 throw new PersonByIDException("No data for this ID : "+id);
             }
 
+            connection.close();
         } catch (SQLException e) {
             throw new PersonByIDException(e.getMessage());
         }

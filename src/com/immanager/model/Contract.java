@@ -1,6 +1,8 @@
 package com.immanager.model;
 
+import com.immanager.dataAccess.ApartmentDbAccess;
 import com.immanager.dataAccess.PersonDbAccess;
+import com.immanager.exception.ApartmentByIdException;
 import com.immanager.exception.PersonByIDException;
 
 import java.util.ArrayList;
@@ -20,7 +22,7 @@ public class Contract {
     private ArrayList<RentOwed> rentOwedList;
     private ArrayList<Payment> paymentList;
 
-    public Contract(GregorianCalendar dateStart, GregorianCalendar dateEnd, Double warranty, Boolean cpasWarranty, Integer guarantee1, Integer guarantee2, Person renter, Apartment apartment, String refEnregistrement) throws PersonByIDException {
+    public Contract(GregorianCalendar dateStart, GregorianCalendar dateEnd, Double warranty, Boolean cpasWarranty, Integer guarantee1, Integer guarantee2, Person renter, Integer apartment, String refEnregistrement) throws PersonByIDException, ApartmentByIdException {
         setDateStart(dateStart);
         setDateEnd(dateEnd);
         setWarranty(warranty);
@@ -86,8 +88,8 @@ public class Contract {
         return apartment;
     }
 
-    public void setApartment(Apartment apartment) {
-        this.apartment = apartment;
+    public void setApartment(Integer apartment) throws ApartmentByIdException {
+        this.apartment = ApartmentDbAccess.getApartmentById(apartment);
     }
 
     public String getRefEnregistrement() {
