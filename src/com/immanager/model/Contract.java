@@ -1,5 +1,8 @@
 package com.immanager.model;
 
+import com.immanager.dataAccess.PersonDbAccess;
+import com.immanager.exception.PersonByIDException;
+
 import java.util.ArrayList;
 import java.util.GregorianCalendar;
 
@@ -17,13 +20,13 @@ public class Contract {
     private ArrayList<RentOwed> rentOwedList;
     private ArrayList<Payment> paymentList;
 
-    public Contract(GregorianCalendar dateStart, GregorianCalendar dateEnd, Double warranty, Boolean cpasWarranty, Integer guarantee1, Integer guarantee2, Integer renter, Integer apartment, String refEnregistrement) {
+    public Contract(GregorianCalendar dateStart, GregorianCalendar dateEnd, Double warranty, Boolean cpasWarranty, Integer guarantee1, Integer guarantee2, Person renter, Apartment apartment, String refEnregistrement) throws PersonByIDException {
         setDateStart(dateStart);
         setDateEnd(dateEnd);
         setWarranty(warranty);
         setCpasWarranty(cpasWarranty);
-        setGuarantee1(guarantee1);
-        setGuarantee2(guarantee2);
+        this.guarantee1 = accessPersonFromDB(guarantee1);
+        this.guarantee2 = accessPersonFromDB(guarantee2);
         setRenter(renter);
         setApartment(apartment);
         setRefEnregistrement(refEnregistrement);
@@ -67,36 +70,24 @@ public class Contract {
         return guarantee1;
     }
 
-    //TODO : Get the Person via DB
-    public void setGuarantee1(Integer guarantee1) {
-
-    }
-
     public Person getGuarantee2() {
         return guarantee2;
-    }
-
-    //TODO : Get the Person via DB
-    public void setGuarantee2(Integer guarantee2) {
-
     }
 
     public Person getRenter() {
         return renter;
     }
 
-    //TODO : Get the Person via DB
-    public void setRenter(Integer renter) {
-
+    public void setRenter(Person renter) {
+        this.renter = renter;
     }
 
     public Apartment getApartment() {
         return apartment;
     }
 
-    //TODO : Get the Apartment via DB
-    public void setApartment(Integer apartment) {
-
+    public void setApartment(Apartment apartment) {
+        this.apartment = apartment;
     }
 
     public String getRefEnregistrement() {
@@ -121,5 +112,11 @@ public class Contract {
 
     public void setPaymentList(ArrayList<Payment> paymentList) {
         this.paymentList = paymentList;
+    }
+
+    private Person accessPersonFromDB(Integer id) throws PersonByIDException{
+        if (id != null)
+            return PersonDbAccess.getPersonById(id);
+        return null;
     }
 }

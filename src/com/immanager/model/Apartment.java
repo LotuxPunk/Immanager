@@ -6,9 +6,8 @@ public class Apartment {
     private String address;
     private String postalCode;
 
-
-    public Apartment(String name, String city, String address, String postalCode)
-    {
+    //TODO : Maybe use the Flyweight Pattern here with a HashMap<K, V> with name as key
+    public Apartment(String name, String city, String address, String postalCode) {
         setName(name);
         setCity(city);
         setAddress(address);

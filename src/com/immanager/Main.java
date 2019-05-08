@@ -11,9 +11,8 @@ public class Main {
 
     public static void main(String[] args){
         List<Contract> contractList = null;
-        ContractDbAccess contractDbAccess = new ContractDbAccess();
         try {
-            contractList = contractDbAccess.getAllContracts();
+            contractList = ContractDbAccess.getAllContracts();
         } catch (AllContractException e) {
             e.printStackTrace();
         }

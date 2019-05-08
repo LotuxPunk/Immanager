@@ -1,18 +1,20 @@
 package com.immanager.dataAccess;
 
 import com.immanager.exception.AllContractException;
+import com.immanager.model.Apartment;
 import com.immanager.model.Contract;
+import com.immanager.model.Person;
 
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.GregorianCalendar;
 
 public class ContractDbAccess {
-    public ArrayList<Contract> getAllContracts() throws AllContractException{
+    public static ArrayList<Contract> getAllContracts() throws AllContractException{
         ArrayList<Contract> contracts = new ArrayList<>();
         Connection connection = DataBaseConnection.getInstance().getConnection();
         try {
-            String sql = "select * from contract";
+            String sql = "select * from contract join person on (contract.renterid = person.id) join apartment on (contract.apartmentid = apartment.idApartement)";
             PreparedStatement statement = connection.prepareStatement(sql);
             ResultSet data = statement.executeQuery();
             ResultSetMetaData meta = data.getMetaData();
@@ -26,6 +28,20 @@ public class ContractDbAccess {
                 else
                     calendarDateEnd = null;
 
+                Person renter = new Person(
+                        data.getString("firstname"),
+                        data.getString("lastname"),
+                        data.getString("register"),
+                        data.getString("person.address")
+                );
+
+                Apartment apartment = new Apartment(
+                        data.getString("name"),
+                        data.getString("city"),
+                        data.getString("apartment.address"),
+                        data.getString("postal_code")
+                );
+
                 Contract contract = new Contract(
                         calendarDateStart,
                         calendarDateEnd,
@@ -33,8 +49,8 @@ public class ContractDbAccess {
                         data.getBoolean("cpasWaranty"),
                         data.getInt("guarantee1"),
                         data.getInt("guarantee2"),
-                        data.getInt("renterid"),
-                        data.getInt("apartmentid"),
+                        renter,
+                        apartment,
                         data.getString("refRegistry")
                 );
 
