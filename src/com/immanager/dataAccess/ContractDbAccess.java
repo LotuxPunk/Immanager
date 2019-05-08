@@ -1,5 +1,6 @@
 package com.immanager.dataAccess;
 
+import com.immanager.dataAccess.dao.ContractDAO;
 import com.immanager.exception.AllContractException;
 import com.immanager.model.Apartment;
 import com.immanager.model.Contract;
@@ -9,8 +10,8 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.GregorianCalendar;
 
-public class ContractDbAccess {
-    public static ArrayList<Contract> getAllContracts() throws AllContractException{
+public class ContractDbAccess implements ContractDAO {
+    public ArrayList<Contract> getAllContracts() throws AllContractException{
         ArrayList<Contract> contracts = new ArrayList<>();
         Connection connection = DataBaseConnection.getInstance().getConnection();
         try {

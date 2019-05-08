@@ -1,12 +1,13 @@
 package com.immanager.dataAccess;
 
+import com.immanager.dataAccess.dao.PersonDAO;
 import com.immanager.exception.PersonByIDException;
 import com.immanager.model.Person;
 
 import java.sql.*;
 
-public class PersonDbAccess {
-    public static Person getPersonById(Integer id) throws PersonByIDException {
+public class PersonDbAccess implements PersonDAO {
+    public Person getPersonById(Integer id) throws PersonByIDException {
         Person person = null;
         Connection connection = DataBaseConnection.getInstance().getConnection();
         try{

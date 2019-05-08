@@ -1,5 +1,6 @@
 package com.immanager.dataAccess;
 
+import com.immanager.dataAccess.dao.ApartmentDAO;
 import com.immanager.exception.ApartmentByIdException;
 import com.immanager.model.Apartment;
 
@@ -9,7 +10,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.HashMap;
 
-public class ApartmentDbAccess {
+public class ApartmentDbAccess implements ApartmentDAO {
     private static HashMap<Integer, Apartment> apartmentMap = new HashMap<>();
 
     /**
@@ -18,7 +19,7 @@ public class ApartmentDbAccess {
      * @return  the apartment from the database
      * @throws ApartmentByIdException
      */
-    public static Apartment getApartmentById(Integer id) throws ApartmentByIdException {
+    public Apartment getApartmentById(Integer id) throws ApartmentByIdException {
         if (apartmentMap.containsKey(id)){
             return apartmentMap.get(id);
         }
