@@ -5,8 +5,11 @@ import com.immanager.exception.AllContractException;
 import com.immanager.exception.ApartmentByIdException;
 import com.immanager.exception.PersonByIDException;
 import com.immanager.model.Contract;
+import com.immanager.view.component.ContractsTable;
 
 import javax.swing.*;
+import javax.swing.table.DefaultTableModel;
+import java.awt.*;
 import java.util.List;
 
 public class AllContractsPanel extends JPanel {
@@ -14,14 +17,23 @@ public class AllContractsPanel extends JPanel {
     public AllContractsPanel() {
         super();
         setController(new ApplicationController());
+        setLayout(new BorderLayout());
         try {
             List<Contract> contracts =  controller.getAllContracts();
-            Object[][] datas = new Object[][]{};
-            contracts.forEach(contract ->{
-                datas[contracts.indexOf(contract)] = contract.toArray();
+            String[] col = {"Apartment", "FirstName", "LastName"};
+            DefaultTableModel tableModel = new DefaultTableModel(col, 0);
+
+            contracts.forEach(contract -> {
+                String apatment = contract.getApartment().getName();
+                String firstname = contract.getRenter().getFirstName();
+                String lastname = contract.getRenter().getLastName();
+                Object[] data = {apatment, firstname, lastname};
+                tableModel.addRow(data);
             });
-            JTable table = new JTable(datas, new Object[]{"JeNeSaisPas"});
-            this.add(table);
+
+            ContractsTable contractsTable = new ContractsTable(tableModel);
+            this.add(new JScrollPane(contractsTable));
+
         } catch (AllContractException | ApartmentByIdException | PersonByIDException e) {
             JOptionPane.showMessageDialog(this, e.getMessage());
         }

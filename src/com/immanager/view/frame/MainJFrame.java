@@ -9,8 +9,8 @@ public class MainJFrame extends JFrame {
     public MainJFrame() throws HeadlessException {
         super("Immanager");
         setBounds(100,100, 500,500);
-        setVisible(true);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setContentPane(new AllContractsPanel());
+        setVisible(true);
     }
 }

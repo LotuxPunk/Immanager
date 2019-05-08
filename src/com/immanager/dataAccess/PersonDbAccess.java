@@ -17,7 +17,7 @@ public class PersonDbAccess implements PersonDAO {
             ResultSet data = statement.executeQuery();
             ResultSetMetaData meta = data.getMetaData();
 
-            if (!data.next()){
+            if (data.next()){
                 person = new Person(
                         data.getString("firstname"),
                         data.getString("lastname"),
