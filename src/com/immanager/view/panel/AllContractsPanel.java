@@ -24,10 +24,10 @@ public class AllContractsPanel extends JPanel {
             DefaultTableModel tableModel = new DefaultTableModel(col, 0);
 
             contracts.forEach(contract -> {
-                String apatment = contract.getApartment().getName();
+                String apartment = contract.getApartment().getName();
                 String firstname = contract.getRenter().getFirstName();
                 String lastname = contract.getRenter().getLastName();
-                Object[] data = {apatment, firstname, lastname};
+                Object[] data = {apartment, firstname, lastname};
                 tableModel.addRow(data);
             });
 
