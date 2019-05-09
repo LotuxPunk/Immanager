@@ -2,6 +2,7 @@ package com.immanager.dataAccess;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.SQLException;
 
 /**
  * @desc Singleton which allows you to connect to the database
@@ -10,7 +11,7 @@ public final class DataBaseConnection {
     private Connection connection;
     private static DataBaseConnection instance;
 
-    private DataBaseConnection(){
+    private DataBaseConnection() throws SQLException{
         String url = "jdbc:mysql://localhost:3306/";
         String dbName = "immanager";
         String username = "root";
@@ -19,15 +20,15 @@ public final class DataBaseConnection {
         try {
             this.connection = DriverManager.getConnection(url + dbName + "?useSSL=false", username, password);
         }
-        catch (Exception sqlE){
-            sqlE.printStackTrace();
+        catch (SQLException e){
+            throw new SQLException(e);
         }
     }
 
     /**
      * @return DataBaseConnection object
      */
-    public static synchronized DataBaseConnection getInstance() {
+    public static synchronized DataBaseConnection getInstance() throws SQLException {
         if ( instance == null ) {
             instance = new DataBaseConnection();
         }
