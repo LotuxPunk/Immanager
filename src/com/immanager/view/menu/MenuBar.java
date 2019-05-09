@@ -1,6 +1,5 @@
 package com.immanager.view.menu;
 
-import com.immanager.model.Apartment;
 import com.immanager.view.listener.ApartmentAction;
 import com.immanager.view.listener.ContractsAction;
 import com.immanager.view.listener.ExitAction;
