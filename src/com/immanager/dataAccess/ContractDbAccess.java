@@ -1,10 +1,10 @@
 package com.immanager.dataAccess;
 
 import com.immanager.dataAccess.dao.ContractDAO;
+import com.immanager.exception.AddContractException;
 import com.immanager.exception.AllContractException;
 import com.immanager.exception.ApartmentByIdException;
 import com.immanager.exception.PersonByIDException;
-import com.immanager.model.Apartment;
 import com.immanager.model.Contract;
 import com.immanager.model.Person;
 
@@ -63,8 +63,29 @@ public class ContractDbAccess implements ContractDAO {
         catch (ApartmentByIdException e){
             throw new ApartmentByIdException(e.getMessage());
         }
-        finally {
-            return contracts;
+        return contracts;
+    }
+
+    public void addContract(Contract contract, Integer guarantee1ID, Integer guarantee2ID, Integer renterID, Integer apartmentID) throws AddContractException {
+        try{
+            Connection connection = DataBaseConnection.getInstance().getConnection();
+            String sql = "insert into contract (Date_start, Date_end, Waranty, Cpaswaranty, Guarantee1, Guarantee2, Renterid, Apartmentid, Refregistry) value (?,?,?,?,?,?,?,?,?)";
+            PreparedStatement statement = connection.prepareStatement(sql);
+            int i = 1;
+            statement.setDate(i++, new Date(contract.getDateStart().getTimeInMillis()));
+            statement.setDate(i++, new Date(contract.getDateEnd().getTimeInMillis()));
+            statement.setDouble(i++, contract.getWarranty());
+            statement.setBoolean(i++, contract.isCpasWarranty());
+            statement.setInt(i++, guarantee1ID);
+            statement.setInt(i++, guarantee2ID);
+            statement.setInt(i++, renterID);
+            statement.setInt(i++, apartmentID);
+            statement.setString(i, contract.getRefEnregistrement());
+
+            statement.executeQuery();
+        }
+        catch (SQLException e){
+            throw new AddContractException(e.getMessage());
         }
     }
 }
