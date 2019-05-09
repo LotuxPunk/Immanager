@@ -52,8 +52,6 @@ public class ContractDbAccess implements ContractDAO {
 
                 contracts.add(contract);
             }
-
-            connection.close();
         } catch (SQLException e) {
             throw new AllContractException(e.getMessage());
         }

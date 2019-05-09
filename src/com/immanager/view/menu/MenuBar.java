@@ -18,7 +18,7 @@ public class MenuBar extends JMenuBar {
 
         JMenuItem exitItem = new JMenuItem("Exit");
         homeMenu.add(exitItem);
-        exitItem.addActionListener(new ExitAction());
+        exitItem.addActionListener(new ExitAction(frame));
 
         //Views
         JMenu viewMenu = new JMenu("Views");

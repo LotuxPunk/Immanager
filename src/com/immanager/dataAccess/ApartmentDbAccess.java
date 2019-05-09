@@ -43,7 +43,6 @@ public class ApartmentDbAccess implements ApartmentDAO {
             }
 
             apartmentMap.put(id, apartment);
-            connection.close();
         } catch (SQLException e) {
             throw new ApartmentByIdException(e.getMessage());
         }
