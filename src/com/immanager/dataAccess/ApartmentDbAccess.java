@@ -1,6 +1,7 @@
 package com.immanager.dataAccess;
 
 import com.immanager.dataAccess.dao.ApartmentDAO;
+import com.immanager.exception.AllApartmentException;
 import com.immanager.exception.ApartmentByIdException;
 import com.immanager.model.Apartment;
 
@@ -8,6 +9,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.HashMap;
 
 public class ApartmentDbAccess implements ApartmentDAO {
@@ -35,7 +37,7 @@ public class ApartmentDbAccess implements ApartmentDAO {
                         data.getString("name"),
                         data.getString("city"),
                         data.getString("address"),
-                        data.getString("postal_code")
+                        data.getInt("postal_code")
                 );
             }
             else{
@@ -46,8 +48,29 @@ public class ApartmentDbAccess implements ApartmentDAO {
         } catch (SQLException e) {
             throw new ApartmentByIdException(e.getMessage());
         }
-        finally {
-            return apartment;
+        return apartment;
+    }
+
+    public ArrayList<Apartment> getAllApartments() throws AllApartmentException {
+        ArrayList<Apartment> apartments = new ArrayList<>();
+        try{
+            Connection connection = DataBaseConnection.getInstance().getConnection();
+
+            String sql = "select * from apartment";
+            PreparedStatement statement = connection.prepareStatement(sql);
+            ResultSet data = statement.executeQuery();
+
+            while (data.next()){
+                apartments.add(new Apartment(
+                        data.getString("name"),
+                        data.getString("city"),
+                        data.getString("address"),
+                        data.getInt("postal_code")
+                ));
+            }
+        } catch (SQLException e) {
+            throw new AllApartmentException(e.getMessage());
         }
+        return apartments;
     }
 }

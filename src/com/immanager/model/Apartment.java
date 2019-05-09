@@ -4,17 +4,17 @@ public class Apartment {
     private String name;
     private String city;
     private String address;
-    private String postalCode;
+    private Integer postalCode;
 
     //TODO : Maybe use the Flyweight Pattern here with a HashMap<K, V> with name as key
-    public Apartment(String name, String city, String address, String postalCode) {
+    public Apartment(String name, String city, String address, Integer postalCode) {
         setName(name);
         setCity(city);
         setAddress(address);
         setPostalCode(postalCode);
     }
 
-    private void setPostalCode(String postal_code)
+    private void setPostalCode(Integer postal_code)
     {
         this.postalCode = postal_code;
     }
@@ -46,7 +46,7 @@ public class Apartment {
         return address;
     }
 
-    public String getPostalCode() {
+    public Integer getPostalCode() {
         return postalCode;
     }
 }
