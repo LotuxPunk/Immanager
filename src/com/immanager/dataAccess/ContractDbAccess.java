@@ -13,6 +13,8 @@ import java.util.ArrayList;
 import java.util.GregorianCalendar;
 
 public class ContractDbAccess implements ContractDAO {
+
+    @Override
     public ArrayList<Contract> getAllContracts() throws AllContractException, ApartmentByIdException, PersonByIDException{
         ArrayList<Contract> contracts = new ArrayList<>();
         try {
@@ -64,6 +66,7 @@ public class ContractDbAccess implements ContractDAO {
         return contracts;
     }
 
+    @Override
     public void addContract(Contract contract, Integer guarantee1ID, Integer guarantee2ID, Integer renterID, Integer apartmentID) throws AddContractException {
         try{
             Connection connection = DataBaseConnection.getInstance().getConnection();

@@ -1,9 +1,6 @@
 package com.immanager.view.menu;
 
-import com.immanager.view.listener.ApartmentAction;
-import com.immanager.view.listener.ContractsAction;
-import com.immanager.view.listener.ExitAction;
-import com.immanager.view.listener.HomeAction;
+import com.immanager.view.listener.*;
 
 import javax.swing.*;
 
@@ -32,7 +29,15 @@ public class MenuBar extends JMenuBar {
         viewMenu.add(apartmentsViewItem);
         apartmentsViewItem.addActionListener(new ApartmentAction(frame));
 
+        //Add
+        JMenu addMenu = new JMenu("Add");
+
+        JMenuItem addContractItem = new JMenuItem("Add contract");
+        addMenu.add(addContractItem);
+        addContractItem.addActionListener(new AddContractMenuAction(frame));
+
         this.add(homeMenu);
         this.add(viewMenu);
+        this.add(addMenu);
     }
 }
