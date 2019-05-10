@@ -65,7 +65,6 @@ public class FormContractPanel extends JPanel {
             //TODO : JComboBox renter
             //TODO : JList Guarantees
         }
-
     }
 
     public void setController(ApplicationController controller) {
