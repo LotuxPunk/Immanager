@@ -1,5 +1,7 @@
 package com.immanager.model;
 
+import java.text.MessageFormat;
+
 public class Person {
     private String firstName;
     private String lastName;
@@ -53,5 +55,10 @@ public class Person {
     public void setAddress(String address)
     {
         this.address = address;
+    }
+
+    @Override
+    public String toString() {
+        return MessageFormat.format("{0} {1} {2}", firstName, lastName, registry);
     }
 }

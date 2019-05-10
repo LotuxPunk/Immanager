@@ -35,7 +35,7 @@ public class AllContractsPanel extends JPanel {
             this.add(new JScrollPane(contractsTable));
 
         } catch (AllContractException | ApartmentByIdException | PersonByIDException e) {
-            JOptionPane.showMessageDialog(this, e.getMessage());
+            JOptionPane.showMessageDialog(this, e.getClass().getName() +" "+e.getMessage());
         }
     }
 

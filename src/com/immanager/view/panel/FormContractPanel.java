@@ -2,6 +2,7 @@ package com.immanager.view.panel;
 
 import com.immanager.controller.ApplicationController;
 import com.immanager.exception.AllApartmentException;
+import com.immanager.exception.AllPersonsException;
 import com.immanager.model.Apartment;
 import com.immanager.model.Person;
 import org.jdatepicker.JDatePicker;
@@ -20,18 +21,20 @@ public class FormContractPanel extends JPanel {
     private ApplicationController controller;
 
     public FormContractPanel() {
-        setController(new ApplicationController());
+        this.setController(new ApplicationController());
         this.setBounds(1, 1, 500,800);
         this.setLayout(new GridLayout(8,2, 5,5));
+
         Apartment[] apartments = null;
+        Person[] people = null;
 
         try {
             apartments = controller.getAllApartment().toArray(new Apartment[]{});
-            //TODO : Get all Person
-        } catch (AllApartmentException e) {
+            people = controller.getAllPersons().toArray(new Person[]{});
+        } catch (AllApartmentException | AllPersonsException e) {
             JOptionPane.showMessageDialog(this, e.getMessage());
         }
-        if (apartments != null){
+        if (apartments != null && people != null){
 
             lDateStart = new JLabel("Date d'entrée");
             this.add(lDateStart);
@@ -62,12 +65,22 @@ public class FormContractPanel extends JPanel {
             refRegistry = new JTextField();
             this.add(refRegistry);
 
-            //TODO : JComboBox renter
-            //TODO : JList Guarantees
+            lRenter = new JLabel("Locataire");
+            this.add(lRenter);
+            renter = new JComboBox<>(people);
+            this.add(renter);
+
+            lGuarantees = new JLabel("Avals");
+            this.add(lGuarantees);
+            guaranteesJList = new JList<>(people);
+            guaranteesJList.setVisibleRowCount(2);
+            JScrollPane scrollPane = new JScrollPane(guaranteesJList);
+            this.add(scrollPane);
         }
     }
 
     public void setController(ApplicationController controller) {
         this.controller = controller;
     }
+
 }

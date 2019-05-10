@@ -40,13 +40,20 @@ public class ContractDbAccess implements ContractDAO {
                         data.getString("person.address")
                 );
 
+                Integer guarantee1 = data.getInt("guarantee1");
+                if(data.wasNull())
+                    guarantee1 = null;
+                Integer guarantee2 = data.getInt("guarantee2");
+                if (data.wasNull())
+                    guarantee2 = null;
+
                 Contract contract = new Contract(
                         calendarDateStart,
                         calendarDateEnd,
                         data.getDouble("waranty"),
                         data.getBoolean("cpasWaranty"),
-                        data.getInt("guarantee1"),
-                        data.getInt("guarantee2"),
+                        guarantee1,
+                        guarantee2,
                         renter,
                         data.getInt("apartmentid"),
                         data.getString("refRegistry")
@@ -70,7 +77,7 @@ public class ContractDbAccess implements ContractDAO {
     public void addContract(Contract contract, Integer guarantee1ID, Integer guarantee2ID, Integer renterID, Integer apartmentID) throws AddContractException {
         try{
             Connection connection = DataBaseConnection.getInstance().getConnection();
-            String sql = "insert into contract (Date_start, Date_end, Waranty, Cpaswaranty, Guarantee1, Guarantee2, Renterid, Apartmentid, Refregistry) value (?,?,?,?,?,?,?,?,?)";
+            String sql = "insert into contract (Date_start, Date_end, Waranty, Cpaswaranty, Guarantee1, Guarantee2, Renterid, Apartmentid, Refregistry) values (?,?,?,?,?,?,?,?,?)";
             PreparedStatement statement = connection.prepareStatement(sql);
             int i = 1;
             statement.setDate(i++, new Date(contract.getDateStart().getTimeInMillis()));
