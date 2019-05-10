@@ -1,5 +1,7 @@
 package com.immanager.model;
 
+import java.text.MessageFormat;
+
 public class Apartment {
     private String name;
     private String city;
@@ -47,5 +49,10 @@ public class Apartment {
 
     public Integer getPostalCode() {
         return postalCode;
+    }
+
+    @Override
+    public String toString() {
+        return MessageFormat.format("{0} {1} {2} {3}", name, address, city, postalCode);
     }
 }
