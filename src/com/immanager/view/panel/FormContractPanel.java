@@ -18,12 +18,13 @@ public class FormContractPanel extends JPanel {
     private JComboBox<Apartment> apartmentJComboBox;
     private JComboBox<Person> renter;
     private JCheckBox cpasWaranty;
+    private JButton confirmButton;
     private ApplicationController controller;
 
     public FormContractPanel() {
         this.setController(new ApplicationController());
         this.setBounds(1, 1, 500,800);
-        this.setLayout(new GridLayout(8,2, 5,5));
+        this.setLayout(new GridLayout(9,2, 5,5));
 
         Apartment[] apartments = null;
         Person[] people = null;
@@ -76,6 +77,7 @@ public class FormContractPanel extends JPanel {
             guaranteesJList.setVisibleRowCount(2);
             JScrollPane scrollPane = new JScrollPane(guaranteesJList);
             this.add(scrollPane);
+            confirmButton =  new JButton("Confirmer");
         }
     }
 
