@@ -19,19 +19,17 @@ public class AllContractsPanel extends JPanel {
         setController(new ApplicationController());
         setLayout(new BorderLayout());
         try {
+            ContractsTable contractsTable = new ContractsTable();
             List<Contract> contracts =  controller.getAllContracts();
-            String[] col = {"Apartment", "FirstName", "LastName"};
-            DefaultTableModel tableModel = new DefaultTableModel(col, 0);
 
             contracts.forEach(contract -> {
                 String apartment = contract.getApartment().getName();
                 String firstname = contract.getRenter().getFirstName();
                 String lastname = contract.getRenter().getLastName();
                 Object[] data = {apartment, firstname, lastname};
-                tableModel.addRow(data);
+                contractsTable.addRow(data);
             });
 
-            ContractsTable contractsTable = new ContractsTable(tableModel);
             this.add(new JScrollPane(contractsTable));
 
         } catch (AllContractException | ApartmentByIdException | PersonByIDException e) {
