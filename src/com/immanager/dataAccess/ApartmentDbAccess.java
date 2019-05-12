@@ -28,8 +28,11 @@ public class ApartmentDbAccess implements ApartmentDAO {
         try{
             Connection connection = DataBaseConnection.getInstance().getConnection();
 
-            String sql = "select * from apartment where idApartment = "+id;
+            String sql = "select * from apartment where idApartment = ?";
+
             PreparedStatement statement = connection.prepareStatement(sql);
+            statement.setInt(0, id);
+
             ResultSet data = statement.executeQuery();
 
             if (data.next()){
