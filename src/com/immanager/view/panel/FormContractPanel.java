@@ -134,6 +134,7 @@ public class FormContractPanel extends JPanel {
                         }
 
                         Contract contract = new Contract(
+                                null,
                                 (GregorianCalendar) dateStart.getModel().getValue(),
                                 (GregorianCalendar) dateEnd.getModel().getValue(),
                                 Double.valueOf(waranty.getText()),

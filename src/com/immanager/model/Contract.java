@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import java.util.GregorianCalendar;
 
 public class Contract {
+    private Integer id;
     private GregorianCalendar dateStart;
     private GregorianCalendar dateEnd;
     private Double warranty;
@@ -22,7 +23,8 @@ public class Contract {
     private ArrayList<RentOwed> rentOwedList;
     private ArrayList<Payment> paymentList;
 
-    public Contract(GregorianCalendar dateStart, GregorianCalendar dateEnd, Double warranty, Boolean cpasWarranty, Integer guarantee1, Integer guarantee2, Person renter, Integer apartment, String refEnregistrement) throws PersonByIDException, ApartmentByIdException {
+    public Contract( Integer id, GregorianCalendar dateStart, GregorianCalendar dateEnd, Double warranty, Boolean cpasWarranty, Integer guarantee1, Integer guarantee2, Person renter, Integer apartment, String refEnregistrement) throws PersonByIDException, ApartmentByIdException {
+        setId(id);
         setDateStart(dateStart);
         setDateEnd(dateEnd);
         setWarranty(warranty);
@@ -36,7 +38,8 @@ public class Contract {
         paymentList= new ArrayList<>();
     }
 
-    public Contract(GregorianCalendar dateStart, GregorianCalendar dateEnd, Double warranty, Boolean cpasWarranty, Person guarantee1, Person guarantee2, Person renter, Apartment apartment, String refEnregistrement) {
+    public Contract(Integer id, GregorianCalendar dateStart, GregorianCalendar dateEnd, Double warranty, Boolean cpasWarranty, Person guarantee1, Person guarantee2, Person renter, Apartment apartment, String refEnregistrement) {
+        this.id = id;
         this.dateStart = dateStart;
         this.dateEnd = dateEnd;
         this.warranty = warranty;
@@ -136,5 +139,13 @@ public class Contract {
 
     public Object[] toArray(){
         return new Object[]{getApartment(), getDateStart(), getDateEnd(), getRenter(), getGuarantee1(), getGuarantee2(), getRefEnregistrement(), getWarranty()};
+    }
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
     }
 }

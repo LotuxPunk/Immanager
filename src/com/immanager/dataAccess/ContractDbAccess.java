@@ -49,6 +49,7 @@ public class ContractDbAccess implements ContractDAO {
                     guarantee2 = null;
 
                 Contract contract = new Contract(
+                        data.getInt("id"),
                         calendarDateStart,
                         calendarDateEnd,
                         data.getDouble("waranty"),
@@ -57,8 +58,7 @@ public class ContractDbAccess implements ContractDAO {
                         guarantee2,
                         renter,
                         data.getInt("apartmentid"),
-                        data.getString("refRegistry")
-                );
+                        data.getString("refRegistry"));
 
                 contracts.add(contract);
             }
