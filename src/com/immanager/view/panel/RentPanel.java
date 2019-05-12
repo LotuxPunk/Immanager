@@ -16,16 +16,18 @@ public class RentPanel extends JPanel {
     public RentPanel(ArrayList<RentOwed> rentOweds, ArrayList<Payment> payments) {
         this.rentOweds = rentOweds;
         this.payments = payments;
+        this.setLayout(new BorderLayout());
+
         RentTable rentsTable = new RentTable();
         RentTable paymentsTable = new RentTable();
 
         JScrollPane jScrollPanePayment = new JScrollPane(paymentsTable);
         JScrollPane jScrollPaneRent =  new JScrollPane(rentsTable);
 
-        splitPane = new JSplitPane(JSplitPane.VERTICAL_SPLIT, true, jScrollPaneRent, jScrollPanePayment);
+        splitPane = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, true, jScrollPaneRent, jScrollPanePayment);
         splitPane.setOneTouchExpandable(true);
-        splitPane.setDividerLocation(50.0);
+        splitPane.setDividerLocation(.5);
 
-        this.setLayout(new BorderLayout());
+        this.add(splitPane, BorderLayout.CENTER);
     }
 }

@@ -17,7 +17,7 @@ public class ContractsAction implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         frame.getContentPane().removeAll();
-        frame.setContentPane(new AllContractsPanel());
+        frame.setContentPane(new AllContractsPanel(frame));
         frame.setVisible(true);
     }
 }

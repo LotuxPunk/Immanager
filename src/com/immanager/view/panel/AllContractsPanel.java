@@ -8,14 +8,18 @@ import com.immanager.model.Contract;
 import com.immanager.view.component.ContractsTable;
 
 import javax.swing.*;
-import javax.swing.table.DefaultTableModel;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
 import java.awt.*;
 import java.util.List;
 
 public class AllContractsPanel extends JPanel {
     private ApplicationController controller;
-    public AllContractsPanel() {
+    private ListSelectionModel listSelect;
+    private JFrame frame;
+    public AllContractsPanel(JFrame frame) {
         super();
+        this.frame = frame;
         setController(new ApplicationController());
         setLayout(new BorderLayout());
         try {
@@ -28,6 +32,19 @@ public class AllContractsPanel extends JPanel {
                 String lastname = contract.getRenter().getLastName();
                 Object[] data = {apartment, firstname, lastname};
                 contractsTable.addRow(data);
+            });
+
+            contractsTable.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+            listSelect = contractsTable.getSelectionModel();
+
+            contractsTable.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
+                @Override
+                public void valueChanged(ListSelectionEvent e) {
+                    int id = listSelect.getMinSelectionIndex();
+                    frame.getContentPane().removeAll();
+                    frame.setContentPane(new ContractPanel(contracts.get(id), frame));
+                    frame.setVisible(true);
+                }
             });
 
             this.add(new JScrollPane(contractsTable));
