@@ -148,7 +148,8 @@ public class FormContractPanel extends JPanel {
                         try{
                             controller.addContract(contract);
                             getFrame().getContentPane().removeAll();
-                            //TODO : Accueil + message
+                            getFrame().setContentPane(new HomePanel("Contrat ajouté avec succès"));
+                            getFrame().setVisible(true);
                         } catch (AddContractException ex) {
                             JOptionPane.showMessageDialog(null, ex.getMessage());
                         }

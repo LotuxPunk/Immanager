@@ -16,7 +16,7 @@ public class MainJFrame extends JFrame {
         setBounds(100,100, 500,500);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setJMenuBar(new MenuBar(this));
-        setContentPane(new HomePanel());
+        setContentPane(new HomePanel(null));
         setVisible(true);
 
         this.addWindowListener(new WindowAdapter() {

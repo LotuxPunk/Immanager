@@ -17,7 +17,7 @@ public class HomeAction implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         frame.getContentPane().removeAll();
-        frame.setContentPane(new HomePanel());
+        frame.setContentPane(new HomePanel(null));
         frame.setVisible(true);
     }
 }
