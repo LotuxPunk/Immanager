@@ -3,13 +3,15 @@ package com.immanager.model;
 import java.text.MessageFormat;
 
 public class Person {
+    private Integer id;
     private String firstName;
     private String lastName;
     private String registry;
     private String address;
 
-    public Person (String firstName, String lastName, String registry, String address)
+    public Person (Integer id, String firstName, String lastName, String registry, String address)
     {
+        this.id = id;
         setFirstName(firstName);
         setLastName(lastName);
         setRegistry(registry);
@@ -60,5 +62,9 @@ public class Person {
     @Override
     public String toString() {
         return MessageFormat.format("{0} {1} {2}", firstName, lastName, registry);
+    }
+
+    public Integer getId() {
+        return id;
     }
 }

@@ -33,6 +33,10 @@ public class ApplicationController {
         return personManager.getAllPersons();
     }
 
+    public void addContract(Contract contract) throws AddContractException {
+        contractManager.addContract(contract);
+    }
+
     public void setContractManager(ContractManager contractManager) {
         this.contractManager = contractManager;
     }

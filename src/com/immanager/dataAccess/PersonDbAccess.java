@@ -21,6 +21,7 @@ public class PersonDbAccess implements PersonDAO {
 
             if (data.next()){
                 person = new Person(
+                        data.getInt("id"),
                         data.getString("firstname"),
                         data.getString("lastname"),
                         data.getString("register"),
@@ -48,6 +49,7 @@ public class PersonDbAccess implements PersonDAO {
 
             while (data.next()){
                 personArrayList.add(new Person(
+                        data.getInt("id"),
                         data.getString("firstname"),
                         data.getString("lastname"),
                         data.getString("register"),

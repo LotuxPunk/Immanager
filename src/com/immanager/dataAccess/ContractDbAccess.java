@@ -34,6 +34,7 @@ public class ContractDbAccess implements ContractDAO {
                     calendarDateEnd = null;
 
                 Person renter = new Person(
+                        data.getInt("id"),
                         data.getString("firstname"),
                         data.getString("lastname"),
                         data.getString("register"),
@@ -74,23 +75,41 @@ public class ContractDbAccess implements ContractDAO {
     }
 
     @Override
-    public void addContract(Contract contract, Integer guarantee1ID, Integer guarantee2ID, Integer renterID, Integer apartmentID) throws AddContractException {
+    public void addContract(Contract contract) throws AddContractException {
         try{
             Connection connection = DataBaseConnection.getInstance().getConnection();
             String sql = "insert into contract (Date_start, Date_end, Waranty, Cpaswaranty, Guarantee1, Guarantee2, Renterid, Apartmentid, Refregistry) values (?,?,?,?,?,?,?,?,?)";
             PreparedStatement statement = connection.prepareStatement(sql);
             int i = 1;
             statement.setDate(i++, new Date(contract.getDateStart().getTimeInMillis()));
-            statement.setDate(i++, new Date(contract.getDateEnd().getTimeInMillis()));
+
+            if (contract.getDateEnd() != null)
+                statement.setDate(i++, new Date(contract.getDateEnd().getTimeInMillis()));
+            else
+                statement.setNull(i++, Types.DATE);
+
             statement.setDouble(i++, contract.getWarranty());
             statement.setBoolean(i++, contract.isCpasWarranty());
-            statement.setInt(i++, guarantee1ID);
-            statement.setInt(i++, guarantee2ID);
-            statement.setInt(i++, renterID);
-            statement.setInt(i++, apartmentID);
-            statement.setString(i, contract.getRefEnregistrement());
 
-            statement.executeQuery();
+            if (contract.getGuarantee1() != null)
+                statement.setInt(i++, contract.getGuarantee1().getId());
+            else
+                statement.setNull(i++,Types.INTEGER);
+
+            if (contract.getGuarantee2() != null)
+                statement.setInt(i++, contract.getGuarantee2().getId());
+            else
+                statement.setNull(i++,Types.INTEGER);
+
+            statement.setInt(i++, contract.getRenter().getId());
+            statement.setInt(i++, contract.getApartment().getId());
+
+            if (contract.getRefEnregistrement() != null)
+                statement.setString(i, contract.getRefEnregistrement());
+            else
+                statement.setNull(i,Types.VARCHAR);
+
+            statement.executeUpdate();
         }
         catch (SQLException e){
             throw new AddContractException(e.getMessage());

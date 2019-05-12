@@ -36,6 +36,18 @@ public class Contract {
         paymentList= new ArrayList<>();
     }
 
+    public Contract(GregorianCalendar dateStart, GregorianCalendar dateEnd, Double warranty, Boolean cpasWarranty, Person guarantee1, Person guarantee2, Person renter, Apartment apartment, String refEnregistrement) {
+        this.dateStart = dateStart;
+        this.dateEnd = dateEnd;
+        this.warranty = warranty;
+        this.cpasWarranty = cpasWarranty;
+        this.guarantee1 = guarantee1;
+        this.guarantee2 = guarantee2;
+        this.renter = renter;
+        this.apartment = apartment;
+        this.refEnregistrement = refEnregistrement;
+    }
+
     public GregorianCalendar getDateStart() {
         return dateStart;
     }

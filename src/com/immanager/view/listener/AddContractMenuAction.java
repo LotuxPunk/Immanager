@@ -16,7 +16,7 @@ public class AddContractMenuAction implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         frame.getContentPane().removeAll();
-        frame.setContentPane(new AddContractPanel());
+        frame.setContentPane(new AddContractPanel(frame));
         frame.setVisible(true);
     }
 }

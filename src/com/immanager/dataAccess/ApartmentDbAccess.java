@@ -34,6 +34,7 @@ public class ApartmentDbAccess implements ApartmentDAO {
 
             if (data.next()){
                 apartment = new Apartment(
+                        data.getInt("idApartment"),
                         data.getString("name"),
                         data.getString("city"),
                         data.getString("address"),
@@ -62,6 +63,7 @@ public class ApartmentDbAccess implements ApartmentDAO {
 
             while (data.next()){
                 apartments.add(new Apartment(
+                        data.getInt("idApartment"),
                         data.getString("name"),
                         data.getString("city"),
                         data.getString("address"),

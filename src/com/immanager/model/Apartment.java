@@ -3,12 +3,14 @@ package com.immanager.model;
 import java.text.MessageFormat;
 
 public class Apartment {
+    private Integer id;
     private String name;
     private String city;
     private String address;
     private Integer postalCode;
 
-    public Apartment(String name, String city, String address, Integer postalCode) {
+    public Apartment(Integer id, String name, String city, String address, Integer postalCode) {
+        this.id = id;
         setName(name);
         setCity(city);
         setAddress(address);
@@ -54,5 +56,9 @@ public class Apartment {
     @Override
     public String toString() {
         return MessageFormat.format("{0} {1} {2} {3}", name, address, city, postalCode);
+    }
+
+    public Integer getId() {
+        return id;
     }
 }

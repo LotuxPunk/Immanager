@@ -1,14 +1,19 @@
 package com.immanager.view.panel;
 
 import com.immanager.controller.ApplicationController;
+import com.immanager.exception.AddContractException;
 import com.immanager.exception.AllApartmentException;
 import com.immanager.exception.AllPersonsException;
 import com.immanager.model.Apartment;
+import com.immanager.model.Contract;
 import com.immanager.model.Person;
 import org.jdatepicker.JDatePicker;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.util.GregorianCalendar;
 
 public class FormContractPanel extends JPanel {
     private JLabel lDateStart, lDateEnd, lWaranty, lCpasWaranty, lGuarantees, lRenter, lApartment, lRefRegistry;
@@ -20,8 +25,10 @@ public class FormContractPanel extends JPanel {
     private JCheckBox cpasWaranty;
     private JButton confirmButton;
     private ApplicationController controller;
+    private JFrame frame;
 
-    public FormContractPanel() {
+    public FormContractPanel(JFrame frame) {
+        this.frame = frame;
         this.setController(new ApplicationController());
         this.setBounds(1, 1, 500,800);
         this.setLayout(new GridLayout(9,2, 5,5));
@@ -78,6 +85,77 @@ public class FormContractPanel extends JPanel {
             JScrollPane scrollPane = new JScrollPane(guaranteesJList);
             this.add(scrollPane);
             confirmButton =  new JButton("Confirmer");
+            this.add(confirmButton);
+
+            confirmButton.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    StringBuilder error = new StringBuilder();
+                    if (guaranteesJList.getSelectedValuesList().size() > 2)
+                        error.append("Maximum 2 avals").append(System.getProperty("line.separator"));
+
+                    if (!dateStart.getFormattedTextField().getText().isEmpty()){
+                        GregorianCalendar dateS = (GregorianCalendar) dateStart.getModel().getValue();
+
+                        if (!dateEnd.getFormattedTextField().getText().isEmpty()){
+                            GregorianCalendar dateE = (GregorianCalendar) dateEnd.getModel().getValue();
+
+                            if (dateS.compareTo(dateE) > 0)
+                                error.append("La date d'entrée doit être inférieur a la date de sortie");
+                        }
+                    }
+                    else{
+                        error.append("La Date d'entrée est obligatoire").append(System.getProperty("line.separator"));
+                    }
+
+                    if (apartmentJComboBox.getSelectedItem() == null)
+                        error.append("L'appartement est obligatoire").append(System.getProperty("line.separator"));
+
+                    if (waranty.getText() == null)
+                        error.append("Le montant de la garantie est obligatoire").append(System.getProperty("line.separator"));
+
+                    if (renter.getSelectedItem() != null){
+                        if (guaranteesJList.getSelectedValuesList().contains(renter.getSelectedItem()))
+                            error.append("Le locataire ne peut pas être un aval").append(System.getProperty("line.separator"));
+                    }
+                    else{
+                        error.append("Le locataire est obligatoire").append(System.getProperty("line.separator"));
+                    }
+                    if (!error.toString().isEmpty()){
+                        JOptionPane.showMessageDialog(null, error.toString());
+                    }
+                    else{
+                        Person guarantee1 = null, guarantee2 = null;
+                        switch (guaranteesJList.getSelectedValuesList().size()){
+                            case 2 :
+                                guarantee2 = guaranteesJList.getSelectedValuesList().get(1);
+                            case 1 :
+                                guarantee1 = guaranteesJList.getSelectedValuesList().get(0);
+                        }
+
+                        Contract contract = new Contract(
+                                (GregorianCalendar) dateStart.getModel().getValue(),
+                                (GregorianCalendar) dateEnd.getModel().getValue(),
+                                Double.valueOf(waranty.getText()),
+                                cpasWaranty.isSelected(),
+                                guarantee1,
+                                guarantee2,
+                                (Person) renter.getSelectedItem(),
+                                (Apartment) apartmentJComboBox.getSelectedItem(),
+                                refRegistry.getText()
+                            );
+
+                        try{
+                            controller.addContract(contract);
+                            getFrame().getContentPane().removeAll();
+                            //TODO : Accueil + message
+                        } catch (AddContractException ex) {
+                            JOptionPane.showMessageDialog(null, ex.getMessage());
+                        }
+                    }
+                }
+
+            });
         }
     }
 
@@ -85,4 +163,7 @@ public class FormContractPanel extends JPanel {
         this.controller = controller;
     }
 
+    public JFrame getFrame() {
+        return frame;
+    }
 }
