@@ -6,6 +6,7 @@ import com.immanager.business.PersonManager;
 import com.immanager.exception.*;
 import com.immanager.model.Apartment;
 import com.immanager.model.Contract;
+import com.immanager.model.ContractResult;
 import com.immanager.model.Person;
 
 import java.util.ArrayList;
@@ -21,7 +22,7 @@ public class ApplicationController {
         setPersonManager(new PersonManager());
     }
 
-    public ArrayList<Contract> getAllContracts() throws AllContractException, ApartmentByIdException, PersonByIDException {
+    public ArrayList<ContractResult> getAllContracts() throws AllContractException, ApartmentByIdException, PersonByIDException, AllRentException, AllPaymentException {
         return contractManager.getAllContracts();
     }
 

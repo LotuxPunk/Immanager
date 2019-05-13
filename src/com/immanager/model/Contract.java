@@ -1,11 +1,5 @@
 package com.immanager.model;
 
-import com.immanager.dataAccess.ApartmentDbAccess;
-import com.immanager.dataAccess.PersonDbAccess;
-import com.immanager.exception.ApartmentByIdException;
-import com.immanager.exception.PersonByIDException;
-
-import java.util.ArrayList;
 import java.util.GregorianCalendar;
 
 public class Contract {
@@ -14,41 +8,31 @@ public class Contract {
     private GregorianCalendar dateEnd;
     private Double warranty;
     private Boolean cpasWarranty;
-    private Person guarantee1;
-    private Person guarantee2;
-    private Person renter;
-    private Apartment apartment;
     private String refEnregistrement;
+    private Integer apartmentID;
+    private Integer renterID;
+    private Integer guarantee1;
+    private Integer guarantee2;
 
-    private ArrayList<RentOwed> rentOwedList;
-    private ArrayList<Payment> paymentList;
-
-    public Contract( Integer id, GregorianCalendar dateStart, GregorianCalendar dateEnd, Double warranty, Boolean cpasWarranty, Integer guarantee1, Integer guarantee2, Person renter, Integer apartment, String refEnregistrement) throws PersonByIDException, ApartmentByIdException {
-        setId(id);
+    public Contract(Integer id, GregorianCalendar dateStart, GregorianCalendar dateEnd, Double warranty, Boolean cpasWarranty, String refEnregistrement, Integer apartmentID, Integer renterID, Integer guarantee1, Integer guarantee2) {
+        setApartmentID(id);
         setDateStart(dateStart);
         setDateEnd(dateEnd);
         setWarranty(warranty);
         setCpasWarranty(cpasWarranty);
-        this.guarantee1 = accessPersonFromDB(guarantee1);
-        this.guarantee2 = accessPersonFromDB(guarantee2);
-        setRenter(renter);
-        setApartment(apartment);
         setRefEnregistrement(refEnregistrement);
-        rentOwedList= new ArrayList<>();
-        paymentList= new ArrayList<>();
+        setApartmentID(apartmentID);
+        setRenterID(renterID);
+        setGuarantee1(guarantee1);
+        setGuarantee2(guarantee2);
     }
 
-    public Contract(Integer id, GregorianCalendar dateStart, GregorianCalendar dateEnd, Double warranty, Boolean cpasWarranty, Person guarantee1, Person guarantee2, Person renter, Apartment apartment, String refEnregistrement) {
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
         this.id = id;
-        this.dateStart = dateStart;
-        this.dateEnd = dateEnd;
-        this.warranty = warranty;
-        this.cpasWarranty = cpasWarranty;
-        this.guarantee1 = guarantee1;
-        this.guarantee2 = guarantee2;
-        this.renter = renter;
-        this.apartment = apartment;
-        this.refEnregistrement = refEnregistrement;
     }
 
     public GregorianCalendar getDateStart() {
@@ -67,44 +51,20 @@ public class Contract {
         this.dateEnd = dateEnd;
     }
 
-    public double getWarranty() {
+    public Double getWarranty() {
         return warranty;
     }
 
-    public void setWarranty(double warranty) {
+    public void setWarranty(Double warranty) {
         this.warranty = warranty;
     }
 
-    public boolean isCpasWarranty() {
+    public Boolean getCpasWarranty() {
         return cpasWarranty;
     }
 
-    public void setCpasWarranty(boolean cpasWarranty) {
+    public void setCpasWarranty(Boolean cpasWarranty) {
         this.cpasWarranty = cpasWarranty;
-    }
-
-    public Person getGuarantee1() {
-        return guarantee1;
-    }
-
-    public Person getGuarantee2() {
-        return guarantee2;
-    }
-
-    public Person getRenter() {
-        return renter;
-    }
-
-    public void setRenter(Person renter) {
-        this.renter = renter;
-    }
-
-    public Apartment getApartment() {
-        return apartment;
-    }
-
-    public void setApartment(Integer apartment) throws ApartmentByIdException {
-        this.apartment = new ApartmentDbAccess().getApartmentById(apartment);
     }
 
     public String getRefEnregistrement() {
@@ -115,37 +75,34 @@ public class Contract {
         this.refEnregistrement = refEnregistrement;
     }
 
-    public ArrayList<RentOwed> getRentOwedList() {
-        return rentOwedList;
+    public Integer getApartmentID() {
+        return apartmentID;
     }
 
-    public void setRentOwedList(ArrayList<RentOwed> rentOwedList) {
-        this.rentOwedList = rentOwedList;
+    public void setApartmentID(Integer apartmentID) {
+        this.apartmentID = apartmentID;
+    }
+    public Integer getRenterID() {
+        return renterID;
     }
 
-    public ArrayList<Payment> getPaymentList() {
-        return paymentList;
+    public void setRenterID(Integer renterID) {
+        this.renterID = renterID;
     }
 
-    public void setPaymentList(ArrayList<Payment> paymentList) {
-        this.paymentList = paymentList;
+    public Integer getGuarantee1() {
+        return guarantee1;
     }
 
-    private Person accessPersonFromDB(Integer id) throws PersonByIDException{
-        if (id != null)
-            return new PersonDbAccess().getPersonById(id);
-        return null;
+    public void setGuarantee1(Integer guarantee1) {
+        this.guarantee1 = guarantee1;
     }
 
-    public Object[] toArray(){
-        return new Object[]{getApartment(), getDateStart(), getDateEnd(), getRenter(), getGuarantee1(), getGuarantee2(), getRefEnregistrement(), getWarranty()};
+    public Integer getGuarantee2() {
+        return guarantee2;
     }
 
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
+    public void setGuarantee2(Integer guarantee2) {
+        this.guarantee2 = guarantee2;
     }
 }

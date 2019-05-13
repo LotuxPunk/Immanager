@@ -11,7 +11,7 @@ public class Person {
 
     public Person (Integer id, String firstName, String lastName, String registry, String address)
     {
-        this.id = id;
+        setId(id);
         setFirstName(firstName);
         setLastName(lastName);
         setRegistry(registry);
@@ -66,5 +66,9 @@ public class Person {
 
     public Integer getId() {
         return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
     }
 }

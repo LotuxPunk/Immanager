@@ -1,6 +1,6 @@
 package com.immanager.view.panel;
 
-import com.immanager.model.Contract;
+import com.immanager.model.ContractResult;
 import com.immanager.view.listener.ContractsAction;
 
 import javax.swing.*;
@@ -9,10 +9,10 @@ import java.awt.*;
 public class ContractPanel extends JPanel {
     private JSplitPane splitPane;
     private JButton returnButton;
-    private Contract contract;
+    private ContractResult contract;
     private JFrame frame;
 
-    public ContractPanel(Contract contract, JFrame frame) {
+    public ContractPanel(ContractResult contract, JFrame frame) {
         this.contract = contract;
         this.frame = frame;
 
@@ -23,7 +23,7 @@ public class ContractPanel extends JPanel {
         returnButton.addActionListener(new ContractsAction(frame));
         personPanel.add(returnButton);
 
-        RentPanel rentPanel = new RentPanel(contract.getRentOwedList(), contract.getPaymentList());
+        RentPanel rentPanel = new RentPanel(contract.getRentOweds(), contract.getPayments());
         splitPane= new JSplitPane(JSplitPane.VERTICAL_SPLIT, true, personPanel, rentPanel);
 
         this.add(splitPane);

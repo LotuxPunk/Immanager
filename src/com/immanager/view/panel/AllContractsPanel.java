@@ -1,10 +1,8 @@
 package com.immanager.view.panel;
 
 import com.immanager.controller.ApplicationController;
-import com.immanager.exception.AllContractException;
-import com.immanager.exception.ApartmentByIdException;
-import com.immanager.exception.PersonByIDException;
-import com.immanager.model.Contract;
+import com.immanager.exception.*;
+import com.immanager.model.ContractResult;
 import com.immanager.view.component.ContractsTable;
 
 import javax.swing.*;
@@ -24,7 +22,7 @@ public class AllContractsPanel extends JPanel {
         setLayout(new BorderLayout());
         try {
             ContractsTable contractsTable = new ContractsTable();
-            List<Contract> contracts =  controller.getAllContracts();
+            List<ContractResult> contracts =  controller.getAllContracts();
 
             contracts.forEach(contract -> {
                 String apartment = contract.getApartment().getName();
@@ -37,19 +35,16 @@ public class AllContractsPanel extends JPanel {
             contractsTable.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
             listSelect = contractsTable.getSelectionModel();
 
-            contractsTable.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
-                @Override
-                public void valueChanged(ListSelectionEvent e) {
-                    int id = listSelect.getMinSelectionIndex();
-                    frame.getContentPane().removeAll();
-                    frame.setContentPane(new ContractPanel(contracts.get(id), frame));
-                    frame.setVisible(true);
-                }
+            contractsTable.getSelectionModel().addListSelectionListener(e -> {
+                int id = listSelect.getMinSelectionIndex();
+                frame.getContentPane().removeAll();
+                frame.setContentPane(new ContractPanel(contracts.get(id), frame));
+                frame.setVisible(true);
             });
 
             this.add(new JScrollPane(contractsTable));
 
-        } catch (AllContractException | ApartmentByIdException | PersonByIDException e) {
+        } catch (AllContractException | ApartmentByIdException | PersonByIDException | AllPaymentException | AllRentException e) {
             JOptionPane.showMessageDialog(this, e.getClass().getName() +" "+e.getMessage());
         }
     }

@@ -125,13 +125,19 @@ public class FormContractPanel extends JPanel {
                         JOptionPane.showMessageDialog(null, error.toString());
                     }
                     else{
-                        Person guarantee1 = null, guarantee2 = null;
+                        Integer guarantee1 = null, guarantee2 = null;
                         switch (guaranteesJList.getSelectedValuesList().size()){
                             case 2 :
-                                guarantee2 = guaranteesJList.getSelectedValuesList().get(1);
+                                guarantee2 = guaranteesJList.getSelectedValuesList().get(1).getId();
                             case 1 :
-                                guarantee1 = guaranteesJList.getSelectedValuesList().get(0);
+                                guarantee1 = guaranteesJList.getSelectedValuesList().get(0).getId();
                         }
+
+                        Apartment apartmentR = (Apartment) apartmentJComboBox.getSelectedItem();
+                        Integer apartmentID = apartmentR.getId();
+
+                        Person renterR = (Person) renter.getSelectedItem();
+                        Integer renterID = renterR.getId();
 
                         Contract contract = new Contract(
                                 null,
@@ -139,11 +145,11 @@ public class FormContractPanel extends JPanel {
                                 (GregorianCalendar) dateEnd.getModel().getValue(),
                                 Double.valueOf(waranty.getText()),
                                 cpasWaranty.isSelected(),
+                                refRegistry.getText(),
+                                apartmentID,
+                                renterID,
                                 guarantee1,
-                                guarantee2,
-                                (Person) renter.getSelectedItem(),
-                                (Apartment) apartmentJComboBox.getSelectedItem(),
-                                refRegistry.getText()
+                                guarantee2
                             );
 
                         try{

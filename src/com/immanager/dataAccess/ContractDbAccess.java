@@ -3,10 +3,7 @@ package com.immanager.dataAccess;
 import com.immanager.dataAccess.dao.ContractDAO;
 import com.immanager.exception.AddContractException;
 import com.immanager.exception.AllContractException;
-import com.immanager.exception.ApartmentByIdException;
-import com.immanager.exception.PersonByIDException;
 import com.immanager.model.Contract;
-import com.immanager.model.Person;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -15,12 +12,12 @@ import java.util.GregorianCalendar;
 public class ContractDbAccess implements ContractDAO {
 
     @Override
-    public ArrayList<Contract> getAllContracts() throws AllContractException, ApartmentByIdException, PersonByIDException{
+    public ArrayList<Contract> getAllContracts() throws AllContractException {
         ArrayList<Contract> contracts = new ArrayList<>();
         try {
             Connection connection = DataBaseConnection.getInstance().getConnection();
 
-            String sql = "select * from contract join person on (contract.renterid = person.id)";
+            String sql = "select * from contract";
             PreparedStatement statement = connection.prepareStatement(sql);
             ResultSet data = statement.executeQuery();
             while(data.next()){
@@ -33,20 +30,7 @@ public class ContractDbAccess implements ContractDAO {
                 else
                     calendarDateEnd = null;
 
-                Person renter = new Person(
-                        data.getInt("id"),
-                        data.getString("firstname"),
-                        data.getString("lastname"),
-                        data.getString("register"),
-                        data.getString("person.address")
-                );
 
-                Integer guarantee1 = data.getInt("guarantee1");
-                if(data.wasNull())
-                    guarantee1 = null;
-                Integer guarantee2 = data.getInt("guarantee2");
-                if (data.wasNull())
-                    guarantee2 = null;
 
                 Contract contract = new Contract(
                         data.getInt("id"),
@@ -54,22 +38,17 @@ public class ContractDbAccess implements ContractDAO {
                         calendarDateEnd,
                         data.getDouble("waranty"),
                         data.getBoolean("cpasWaranty"),
-                        guarantee1,
-                        guarantee2,
-                        renter,
+                        data.getString("refRegistry"),
                         data.getInt("apartmentid"),
-                        data.getString("refRegistry"));
+                        data.getInt("renterid"),
+                        data.getInt("guarantee1"),
+                        data.getInt("guarantee2")
+                );
 
                 contracts.add(contract);
             }
         } catch (SQLException e) {
             throw new AllContractException(e.getMessage());
-        }
-        catch (PersonByIDException e){
-            throw new PersonByIDException(e.getMessage());
-        }
-        catch (ApartmentByIdException e){
-            throw new ApartmentByIdException(e.getMessage());
         }
         return contracts;
     }
@@ -89,20 +68,20 @@ public class ContractDbAccess implements ContractDAO {
                 statement.setNull(i++, Types.DATE);
 
             statement.setDouble(i++, contract.getWarranty());
-            statement.setBoolean(i++, contract.isCpasWarranty());
+            statement.setBoolean(i++, contract.getCpasWarranty());
 
             if (contract.getGuarantee1() != null)
-                statement.setInt(i++, contract.getGuarantee1().getId());
+                statement.setInt(i++, contract.getGuarantee1());
             else
                 statement.setNull(i++,Types.INTEGER);
 
             if (contract.getGuarantee2() != null)
-                statement.setInt(i++, contract.getGuarantee2().getId());
+                statement.setInt(i++, contract.getGuarantee2());
             else
                 statement.setNull(i++,Types.INTEGER);
 
-            statement.setInt(i++, contract.getRenter().getId());
-            statement.setInt(i++, contract.getApartment().getId());
+            statement.setInt(i++, contract.getRenterID());
+            statement.setInt(i++, contract.getApartmentID());
 
             if (contract.getRefEnregistrement() != null)
                 statement.setString(i, contract.getRefEnregistrement());
