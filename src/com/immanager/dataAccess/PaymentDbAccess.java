@@ -19,7 +19,7 @@ public class PaymentDbAccess implements PaymentDAO {
             Connection connection = DataBaseConnection.getInstance().getConnection();
             String sql = "select * from payment where contractid = ?";
             PreparedStatement statement = connection.prepareStatement(sql);
-            statement.setInt(0, contractID);
+            statement.setInt(1, contractID);
 
             ResultSet data = statement.executeQuery();
 
