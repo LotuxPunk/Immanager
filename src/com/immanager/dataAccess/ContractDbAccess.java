@@ -24,13 +24,20 @@ public class ContractDbAccess implements ContractDAO {
                 GregorianCalendar calendarDateStart = new GregorianCalendar();
                 GregorianCalendar calendarDateEnd = new GregorianCalendar();
 
+//                Dates
                 calendarDateStart.setTime(data.getDate("date_start"));
-                if (data.getDate("date_end")!= null)
-                    calendarDateEnd.setTime(data.getDate("date_end"));
-                else
+                calendarDateEnd.setTime(data.getDate("date_end"));
+                if (data.wasNull())
                     calendarDateEnd = null;
 
-
+//                Guarantees
+                Integer guarantee1, guarantee2;
+                guarantee1 = data.getInt("guarantee1");
+                if (data.wasNull())
+                    guarantee1 = null;
+                guarantee2 = data.getInt("guarantee2");
+                if (data.wasNull())
+                    guarantee2 = null;
 
                 Contract contract = new Contract(
                         data.getInt("id"),
@@ -41,8 +48,8 @@ public class ContractDbAccess implements ContractDAO {
                         data.getString("refRegistry"),
                         data.getInt("apartmentid"),
                         data.getInt("renterid"),
-                        data.getInt("guarantee1"),
-                        data.getInt("guarantee2")
+                        guarantee1,
+                        guarantee2
                 );
 
                 contracts.add(contract);
