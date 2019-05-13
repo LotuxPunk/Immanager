@@ -15,7 +15,7 @@ public class Contract {
     private Integer guarantee2;
 
     public Contract(Integer id, GregorianCalendar dateStart, GregorianCalendar dateEnd, Double warranty, Boolean cpasWarranty, String refEnregistrement, Integer apartmentID, Integer renterID, Integer guarantee1, Integer guarantee2) {
-        setApartmentID(id);
+        setId(id);
         setDateStart(dateStart);
         setDateEnd(dateEnd);
         setWarranty(warranty);

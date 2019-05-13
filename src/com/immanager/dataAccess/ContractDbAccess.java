@@ -26,9 +26,11 @@ public class ContractDbAccess implements ContractDAO {
 
 //                Dates
                 calendarDateStart.setTime(data.getDate("date_start"));
-                calendarDateEnd.setTime(data.getDate("date_end"));
+                Date dateEnd = data.getDate("date_end");
                 if (data.wasNull())
                     calendarDateEnd = null;
+                else
+                    calendarDateEnd.setTime(dateEnd);
 
 //                Guarantees
                 Integer guarantee1, guarantee2;
