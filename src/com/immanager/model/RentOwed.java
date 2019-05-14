@@ -3,31 +3,12 @@ package com.immanager.model;
 import java.util.GregorianCalendar;
 
 public class RentOwed {
-    private Double rent;
-    private Double charge;
     private GregorianCalendar date;
+    private Amount amount;
 
-    public RentOwed(double rent, double charge, GregorianCalendar date) {
-        setRent(rent);
-        setCharge(charge);
+    public RentOwed(Double rent, Double charge, GregorianCalendar date) {
+        setAmount(rent,charge);
         setDate(date);
-    }
-
-
-    public double getRent() {
-        return rent;
-    }
-
-    public void setRent(double rent) {
-        this.rent = rent;
-    }
-
-    public double getCharge() {
-        return charge;
-    }
-
-    public void setCharge(double charge) {
-        this.charge = charge;
     }
 
     public GregorianCalendar getDate() {
@@ -36,5 +17,39 @@ public class RentOwed {
 
     public void setDate(GregorianCalendar date) {
         this.date = date;
+    }
+
+    public Amount getAmount() {
+        return amount;
+    }
+
+    public void setAmount(Double rent, Double charge) {
+        this.amount = new Amount(rent, charge);
+    }
+
+    private class Amount{
+        private Double rent;
+        private Double charge;
+
+        public Amount(Double rent, Double charge) {
+            setRent(rent);
+            setCharge(charge);
+        }
+
+        public Double getRent() {
+            return rent;
+        }
+
+        public void setRent(Double rent) {
+            this.rent = rent;
+        }
+
+        public Double getCharge() {
+            return charge;
+        }
+
+        public void setCharge(Double charge) {
+            this.charge = charge;
+        }
     }
 }
