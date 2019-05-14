@@ -36,8 +36,17 @@ public class MenuBar extends JMenuBar {
         addMenu.add(addContractItem);
         addContractItem.addActionListener(new AddContractMenuAction(frame));
 
+        //Search
+        JMenu searchMenu = new JMenu("Search");
+
+        JMenuItem searchPayments = new JMenuItem("Search payments by apartment's name");
+        searchMenu.add(searchPayments);
+        searchPayments.addActionListener(new SearchPaymentsAction(frame));
+
+        //Menus
         this.add(homeMenu);
         this.add(viewMenu);
         this.add(addMenu);
+        this.add(searchMenu);
     }
 }

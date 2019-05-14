@@ -2,21 +2,25 @@ package com.immanager.controller;
 
 import com.immanager.business.ApartmentManager;
 import com.immanager.business.ContractManager;
+import com.immanager.business.PaymentManager;
 import com.immanager.business.PersonManager;
 import com.immanager.exception.*;
 import com.immanager.model.*;
 
 import java.util.ArrayList;
+import java.util.GregorianCalendar;
 
 public class ApplicationController {
     private ContractManager contractManager;
     private ApartmentManager apartmentManager;
     private PersonManager personManager;
+    private PaymentManager paymentManager;
 
     public ApplicationController() {
         setContractManager(new ContractManager());
         setApartmentManager(new ApartmentManager());
         setPersonManager(new PersonManager());
+        setPaymentManager(new PaymentManager());
     }
 
     public ArrayList<ContractResult> getAllContracts() throws AllContractException, ApartmentByIdException, PersonByIDException, AllRentException, AllPaymentException {
@@ -39,6 +43,10 @@ public class ApplicationController {
         contractManager.updateContract(contract);
     }
 
+    public ArrayList<PaymentResult> getAllPaymentFromApartmentName(GregorianCalendar firstDate, GregorianCalendar lastDate, Integer apartmentid) throws AllPaymentFromApartmentException {
+        return paymentManager.getAllPaymentFromApartmentName(firstDate, lastDate, apartmentid);
+    }
+
     public void setContractManager(ContractManager contractManager) {
         this.contractManager = contractManager;
     }
@@ -49,5 +57,9 @@ public class ApplicationController {
 
     public void setPersonManager(PersonManager personManager) {
         this.personManager = personManager;
+    }
+
+    public void setPaymentManager(PaymentManager paymentManager) {
+        this.paymentManager = paymentManager;
     }
 }
