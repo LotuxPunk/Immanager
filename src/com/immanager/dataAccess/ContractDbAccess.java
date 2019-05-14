@@ -135,7 +135,9 @@ public class ContractDbAccess implements ContractDAO {
 
             statement.setInt(i++, contract.getApartmentID());
             statement.setInt(i++, contract.getRenterID());
-            statement.setInt(i, contract.getRenterID());
+            statement.setInt(i, contract.getId());
+
+            System.out.println(statement);
 
             statement.executeUpdate();
         } catch (SQLException e) {
