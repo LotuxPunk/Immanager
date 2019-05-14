@@ -51,5 +51,9 @@ public class RentOwed {
         public void setCharge(Double charge) {
             this.charge = charge;
         }
+
+        public Double getTotal(){
+            return  this.charge + this.rent;
+        }
     }
 }

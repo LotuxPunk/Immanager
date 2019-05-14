@@ -17,7 +17,7 @@ public class PaymentDbAccess implements PaymentDAO {
         ArrayList<Payment> payments = new ArrayList<>();
         try{
             Connection connection = DataBaseConnection.getInstance().getConnection();
-            String sql = "select * from payment where contractid = ?";
+            String sql = "select * from payment where contractid = ? order by payment.date asc";
             PreparedStatement statement = connection.prepareStatement(sql);
             statement.setInt(1, contractID);
 

@@ -3,11 +3,11 @@ package com.immanager.business;
 import com.immanager.dataAccess.*;
 import com.immanager.dataAccess.dao.*;
 import com.immanager.exception.*;
-import com.immanager.model.Contract;
-import com.immanager.model.ContractResult;
-import com.immanager.model.Person;
+import com.immanager.model.*;
 
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.GregorianCalendar;
 
 public class ContractManager {
     private ContractDAO contractDataAccess;
@@ -36,13 +36,15 @@ public class ContractManager {
             if (contract.getGuarantee2() != null)
                 guarantees.add(personDataAccess.getPersonById(contract.getGuarantee2()));
 
+            ArrayList<ShowableRent> showableRents = getRentSchedule(rentDataAccess.getAllRentFromRenter(contract.getId()), contract.getDateEnd());
+
             ContractResult contractResult = new ContractResult(
                     contract,
                     apartmentDataAccess.getApartmentById(contract.getApartmentID()),
                     personDataAccess.getPersonById(contract.getRenterID()),
                     guarantees,
                     paymentDataAccess.getAllPaymentFromRenter(contract.getId()),
-                    rentDataAccess.getAllRentFromRenter(contract.getId())
+                    showableRents
             );
 
             contractResults.add(contractResult);
@@ -54,6 +56,39 @@ public class ContractManager {
 
     public void addContract(Contract contract) throws AddContractException {
         contractDataAccess.addContract(contract);
+    }
+
+    /**
+     * Tâche métier
+     * @param rentOweds Tableau de loyers indexé
+     * @param dateOut date de sortie du locataire (can be null)
+     * @return Tableau de loyers à afficher dans la JTable
+     */
+    public ArrayList<ShowableRent> getRentSchedule(ArrayList<RentOwed> rentOweds, GregorianCalendar dateOut){
+        ArrayList<ShowableRent> schedule = new ArrayList<>();
+        int rentCount = rentOweds.size();
+        GregorianCalendar today = new GregorianCalendar();
+        GregorianCalendar endDate = new GregorianCalendar();
+        GregorianCalendar nextMonth = new GregorianCalendar();
+
+        for (RentOwed rent : rentOweds) {
+            if (rentCount > 1){
+                endDate = rentOweds.get(rentOweds.indexOf(rent) + 1).getDate();
+                do {
+                    schedule.add(new ShowableRent(rent, (GregorianCalendar) nextMonth.clone()));
+                    nextMonth.add(GregorianCalendar.MONTH, 1);
+                } while(nextMonth.compareTo(endDate) < 0);
+            }
+            else {
+                do{
+                    schedule.add(new ShowableRent(rent, (GregorianCalendar) nextMonth.clone()));
+                    nextMonth.add(GregorianCalendar.MONTH, 1);
+                } while (today.compareTo(nextMonth) >= 0 || (dateOut != null && dateOut.compareTo(nextMonth) >= 0));
+            }
+            rentCount--;
+        }
+
+        return schedule;
     }
 
     public void setContractDataAccess(ContractDAO contarctDataAccess) {

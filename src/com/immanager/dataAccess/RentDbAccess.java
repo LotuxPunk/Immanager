@@ -17,7 +17,7 @@ public class RentDbAccess implements RentDAO {
         ArrayList<RentOwed> rents = new ArrayList<>();
         try{
             Connection connection = DataBaseConnection.getInstance().getConnection();
-            String sql = "select * from rent_owed where contractid = ?";
+            String sql = "select * from rent_owed where contractid = ? order by rent_owed.date asc";
             PreparedStatement statement = connection.prepareStatement(sql);
             statement.setInt(1, contractID);
 

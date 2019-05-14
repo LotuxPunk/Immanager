@@ -8,9 +8,9 @@ public class ContractResult {
     private Person renter;
     private ArrayList<Person> guarantees;
     private ArrayList<Payment> payments;
-    private ArrayList<RentOwed> rentOweds;
+    private ArrayList<ShowableRent> rentOweds;
 
-    public ContractResult(Contract contract, Apartment apartment, Person renter, ArrayList<Person> guarantees, ArrayList<Payment> payments, ArrayList<RentOwed> rentOweds) {
+    public ContractResult(Contract contract, Apartment apartment, Person renter, ArrayList<Person> guarantees, ArrayList<Payment> payments, ArrayList<ShowableRent> rentOweds) {
         setContract(contract);
         setApartment(apartment);
         setRenter(renter);
@@ -59,11 +59,11 @@ public class ContractResult {
         this.payments = payments;
     }
 
-    public ArrayList<RentOwed> getRentOweds() {
+    public ArrayList<ShowableRent> getRentOweds() {
         return rentOweds;
     }
 
-    public void setRentOweds(ArrayList<RentOwed> rentOweds) {
+    public void setRentOweds(ArrayList<ShowableRent> rentOweds) {
         this.rentOweds = rentOweds;
     }
 }
