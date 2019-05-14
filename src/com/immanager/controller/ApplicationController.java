@@ -4,10 +4,7 @@ import com.immanager.business.ApartmentManager;
 import com.immanager.business.ContractManager;
 import com.immanager.business.PersonManager;
 import com.immanager.exception.*;
-import com.immanager.model.Apartment;
-import com.immanager.model.Contract;
-import com.immanager.model.ContractResult;
-import com.immanager.model.Person;
+import com.immanager.model.*;
 
 import java.util.ArrayList;
 
@@ -34,8 +31,8 @@ public class ApplicationController {
         return personManager.getAllPersons();
     }
 
-    public void addContract(Contract contract) throws AddContractException {
-        contractManager.addContract(contract);
+    public void addContract(Contract contract, RentOwed rentOwed) throws AddContractException, AddRentOwedException {
+        contractManager.addContract(contract, rentOwed);
     }
 
     public void setContractManager(ContractManager contractManager) {

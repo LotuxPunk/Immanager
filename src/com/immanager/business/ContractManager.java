@@ -54,8 +54,9 @@ public class ContractManager {
 
     }
 
-    public void addContract(Contract contract) throws AddContractException {
-        contractDataAccess.addContract(contract);
+    public void addContract(Contract contract, RentOwed rentOwed) throws AddContractException, AddRentOwedException {
+        Integer id = contractDataAccess.addContract(contract);
+        rentDataAccess.addRent(rentOwed, id);
     }
 
     /**
@@ -69,7 +70,7 @@ public class ContractManager {
         int rentCount = rentOweds.size();
         GregorianCalendar today = new GregorianCalendar();
         GregorianCalendar endDate = new GregorianCalendar();
-        GregorianCalendar nextMonth = new GregorianCalendar();
+        GregorianCalendar nextMonth = rentOweds.get(0).getDate();
 
         for (RentOwed rent : rentOweds) {
             if (rentCount > 1){
@@ -83,7 +84,9 @@ public class ContractManager {
                 do{
                     schedule.add(new ShowableRent(rent, (GregorianCalendar) nextMonth.clone()));
                     nextMonth.add(GregorianCalendar.MONTH, 1);
-                } while (today.compareTo(nextMonth) >= 0 || (dateOut != null && dateOut.compareTo(nextMonth) >= 0));
+                    if (dateOut != null && dateOut.compareTo(nextMonth) >= 0)
+                        break;
+                } while (today.compareTo(nextMonth) >= 0);
             }
             rentCount--;
         }

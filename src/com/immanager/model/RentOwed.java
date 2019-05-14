@@ -27,7 +27,7 @@ public class RentOwed {
         this.amount = new Amount(rent, charge);
     }
 
-    private class Amount{
+    public class Amount{
         private Double rent;
         private Double charge;
 

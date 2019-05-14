@@ -6,7 +6,7 @@ public class Payment {
     private Double amount;
     private GregorianCalendar date;
 
-    public Payment (double amount, GregorianCalendar date) {
+    public Payment (Double amount, GregorianCalendar date) {
         setAmount(amount);
         setDate(date);
     }

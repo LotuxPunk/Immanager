@@ -66,4 +66,24 @@ public class ContractResult {
     public void setRentOweds(ArrayList<ShowableRent> rentOweds) {
         this.rentOweds = rentOweds;
     }
+
+    public Double getSumOfPayments(){
+        Double sum = 0.0;
+        for (Payment payment : payments) {
+            sum += payment.getAmount();
+        }
+        return sum;
+    }
+
+    public Double getSumOfRents(){
+        Double sum = 0.0;
+        for (ShowableRent showableRent : rentOweds) {
+            sum += showableRent.getRent().getAmount().getTotal();
+        }
+        return sum;
+    }
+
+    public Double getDifference(){
+        return getSumOfPayments() - getSumOfRents();
+    }
 }

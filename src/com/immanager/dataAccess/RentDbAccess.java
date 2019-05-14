@@ -1,13 +1,12 @@
 package com.immanager.dataAccess;
 
 import com.immanager.dataAccess.dao.RentDAO;
+import com.immanager.exception.AddContractException;
+import com.immanager.exception.AddRentOwedException;
 import com.immanager.exception.AllRentException;
 import com.immanager.model.RentOwed;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.GregorianCalendar;
 
@@ -37,5 +36,27 @@ public class RentDbAccess implements RentDAO {
             throw new AllRentException(e.getMessage());
         }
         return rents;
+    }
+
+    @Override
+    public void addRent(RentOwed rentOwed, Integer contractid) throws AddRentOwedException {
+        try{
+            Connection connection = DataBaseConnection.getInstance().getConnection();
+            String sql = "insert into rent_owed (charge, rent, date, contractid) values (?,?,?,?)";
+            PreparedStatement statement = connection.prepareStatement(sql);
+            int i = 1;
+
+            Date date = new Date(rentOwed.getDate().getTimeInMillis());
+
+            statement.setDouble(i++,rentOwed.getAmount().getCharge());
+            statement.setDouble(i++, rentOwed.getAmount().getRent());
+            statement.setDate(i++, date);
+            statement.setInt(i, contractid);
+
+            statement.executeUpdate();
+        }
+        catch (SQLException e){
+            throw new AddRentOwedException(e.getMessage());
+        }
     }
 }

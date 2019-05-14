@@ -63,11 +63,11 @@ public class ContractDbAccess implements ContractDAO {
     }
 
     @Override
-    public void addContract(Contract contract) throws AddContractException {
+    public Integer addContract(Contract contract) throws AddContractException {
         try{
             Connection connection = DataBaseConnection.getInstance().getConnection();
             String sql = "insert into contract (Date_start, Date_end, Waranty, Cpaswaranty, Guarantee1, Guarantee2, Renterid, Apartmentid, Refregistry) values (?,?,?,?,?,?,?,?,?)";
-            PreparedStatement statement = connection.prepareStatement(sql);
+            PreparedStatement statement = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
             int i = 1;
             statement.setDate(i++, new Date(contract.getDateStart().getTimeInMillis()));
 
@@ -98,6 +98,10 @@ public class ContractDbAccess implements ContractDAO {
                 statement.setNull(i,Types.VARCHAR);
 
             statement.executeUpdate();
+            ResultSet resultSet = statement.getGeneratedKeys();
+
+            resultSet.next();
+            return resultSet.getInt(1);
         }
         catch (SQLException e){
             throw new AddContractException(e.getMessage());

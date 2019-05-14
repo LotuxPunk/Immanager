@@ -2,11 +2,13 @@ package com.immanager.view.panel;
 
 import com.immanager.controller.ApplicationController;
 import com.immanager.exception.AddContractException;
+import com.immanager.exception.AddRentOwedException;
 import com.immanager.exception.AllApartmentException;
 import com.immanager.exception.AllPersonsException;
 import com.immanager.model.Apartment;
 import com.immanager.model.Contract;
 import com.immanager.model.Person;
+import com.immanager.model.RentOwed;
 import org.jdatepicker.JDatePicker;
 
 import javax.swing.*;
@@ -16,9 +18,9 @@ import java.awt.event.ActionListener;
 import java.util.GregorianCalendar;
 
 public class FormContractPanel extends JPanel {
-    private JLabel lDateStart, lDateEnd, lWaranty, lCpasWaranty, lGuarantees, lRenter, lApartment, lRefRegistry;
+    private JLabel lDateStart, lDateEnd, lWaranty, lCpasWaranty, lGuarantees, lRenter, lApartment, lRefRegistry, lAmount, lCharge;
     private JDatePicker dateStart, dateEnd;
-    private JTextField waranty, refRegistry;
+    private JTextField waranty, refRegistry, amount, charge;
     private JList<Person> guaranteesJList;
     private JComboBox<Apartment> apartmentJComboBox;
     private JComboBox<Person> renter;
@@ -31,7 +33,7 @@ public class FormContractPanel extends JPanel {
         this.frame = frame;
         this.setController(new ApplicationController());
         this.setBounds(1, 1, 500,800);
-        this.setLayout(new GridLayout(9,2, 5,5));
+        this.setLayout(new GridLayout(11,2, 5,5));
 
         Apartment[] apartments = null;
         Person[] people = null;
@@ -62,6 +64,15 @@ public class FormContractPanel extends JPanel {
             this.add(lCpasWaranty);
             cpasWaranty = new JCheckBox();
             this.add(cpasWaranty);
+
+            lAmount = new JLabel("Montant du loyer");
+            this.add(lAmount);
+            amount = new JTextField();
+            this.add(amount);
+            lCharge = new JLabel("Montant des charges");
+            this.add(lCharge);
+            charge = new JTextField();
+            this.add(charge);
 
             lApartment = new JLabel("Appartement");
             this.add(lApartment);
@@ -111,8 +122,8 @@ public class FormContractPanel extends JPanel {
                     if (apartmentJComboBox.getSelectedItem() == null)
                         error.append("L'appartement est obligatoire").append(System.getProperty("line.separator"));
 
-                    if (waranty.getText() == null)
-                        error.append("Le montant de la garantie est obligatoire").append(System.getProperty("line.separator"));
+                    if (waranty.getText() == null || charge.getText() == null || amount.getText() == null)
+                        error.append("Les montants de garantie/charge/loyer sont obligatoires").append(System.getProperty("line.separator"));
 
                     if (renter.getSelectedItem() != null){
                         if (guaranteesJList.getSelectedValuesList().contains(renter.getSelectedItem()))
@@ -139,25 +150,33 @@ public class FormContractPanel extends JPanel {
                         Person renterR = (Person) renter.getSelectedItem();
                         Integer renterID = renterR.getId();
 
-                        Contract contract = new Contract(
-                                null,
-                                (GregorianCalendar) dateStart.getModel().getValue(),
-                                (GregorianCalendar) dateEnd.getModel().getValue(),
-                                Double.valueOf(waranty.getText()),
-                                cpasWaranty.isSelected(),
-                                refRegistry.getText(),
-                                apartmentID,
-                                renterID,
-                                guarantee1,
-                                guarantee2
+                        try{
+
+                            Contract contract = new Contract(
+                                    null,
+                                    (GregorianCalendar) dateStart.getModel().getValue(),
+                                    (GregorianCalendar) dateEnd.getModel().getValue(),
+                                    Double.valueOf(waranty.getText()),
+                                    cpasWaranty.isSelected(),
+                                    refRegistry.getText(),
+                                    apartmentID,
+                                    renterID,
+                                    guarantee1,
+                                    guarantee2
+                                );
+
+                            RentOwed firstRent = new RentOwed(
+                                    Double.valueOf(amount.getText()),
+                                    Double.valueOf(charge.getText()),
+                                    (GregorianCalendar) dateStart.getModel().getValue()
                             );
 
-                        try{
-                            controller.addContract(contract);
+                            controller.addContract(contract, firstRent);
+
                             getFrame().getContentPane().removeAll();
                             getFrame().setContentPane(new HomePanel("Contrat ajouté avec succès"));
                             getFrame().setVisible(true);
-                        } catch (AddContractException ex) {
+                        } catch (AddContractException | NumberFormatException | AddRentOwedException ex) {
                             JOptionPane.showMessageDialog(null, ex.getMessage());
                         }
                     }

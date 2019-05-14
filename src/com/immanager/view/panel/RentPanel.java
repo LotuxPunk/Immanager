@@ -15,8 +15,8 @@ public class RentPanel extends JPanel {
     private JSplitPane splitPane;
 
     public RentPanel(ArrayList<ShowableRent> rentOweds, ArrayList<Payment> payments) {
-        this.rentOweds = rentOweds;
-        this.payments = payments;
+        setRentOweds(rentOweds);
+        setPayments(payments);
         this.setLayout(new BorderLayout());
 
         RentTable rentsTable = new RentTable();
@@ -29,6 +29,17 @@ public class RentPanel extends JPanel {
         splitPane.setDividerLocation(.5);
         splitPane.setOneTouchExpandable(true);
 
+        rentOweds.forEach(showableRent -> rentsTable.addRow(showableRent.getDate(), showableRent.getRent().getAmount().getTotal()));
+        payments.forEach(payment -> paymentsTable.addRow(payment.getDate(), payment.getAmount()));
+
         this.add(splitPane, BorderLayout.CENTER);
+    }
+
+    public void setRentOweds(ArrayList<ShowableRent> rentOweds) {
+        this.rentOweds = rentOweds;
+    }
+
+    public void setPayments(ArrayList<Payment> payments) {
+        this.payments = payments;
     }
 }

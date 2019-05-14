@@ -10,5 +10,5 @@ import java.util.ArrayList;
 
 public interface ContractDAO{
     ArrayList<Contract> getAllContracts() throws AllContractException, ApartmentByIdException, PersonByIDException;
-    void addContract(Contract contract) throws AddContractException;
+    Integer addContract(Contract contract) throws AddContractException;
 }

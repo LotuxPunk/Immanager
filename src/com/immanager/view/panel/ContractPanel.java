@@ -18,13 +18,13 @@ public class ContractPanel extends JPanel {
 
         this.setLayout(new BorderLayout());
 
-        PersonPanel personPanel = new PersonPanel(contract.getRenter());
+        ContractInfo contractInfo = new ContractInfo(contract);
         returnButton = new JButton("Retour");
         returnButton.addActionListener(new ContractsAction(frame));
-        personPanel.add(returnButton);
+        contractInfo.add(returnButton);
 
         RentPanel rentPanel = new RentPanel(contract.getRentOweds(), contract.getPayments());
-        splitPane= new JSplitPane(JSplitPane.VERTICAL_SPLIT, true, personPanel, rentPanel);
+        splitPane= new JSplitPane(JSplitPane.VERTICAL_SPLIT, true, contractInfo, rentPanel);
 
         this.add(splitPane);
     }
