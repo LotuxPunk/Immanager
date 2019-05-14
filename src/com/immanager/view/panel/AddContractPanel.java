@@ -4,11 +4,9 @@ import javax.swing.*;
 import java.awt.*;
 
 public class AddContractPanel extends JPanel {
-    private JFrame frame;
 
     public AddContractPanel(JFrame frame) {
-        this.frame = frame;
-        this.setLayout(new FlowLayout());
-        this.add(new FormContractPanel(frame));
+        this.setLayout(new BorderLayout());
+        this.add(new FormContractPanel(frame, null));
     }
 }

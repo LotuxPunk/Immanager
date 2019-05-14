@@ -94,6 +94,10 @@ public class ContractManager {
         return schedule;
     }
 
+    public void updateContract (Contract contract) throws UpdateContractException {
+        contractDataAccess.updateContract(contract);
+    }
+
     public void setContractDataAccess(ContractDAO contarctDataAccess) {
         this.contractDataAccess = contarctDataAccess;
     }

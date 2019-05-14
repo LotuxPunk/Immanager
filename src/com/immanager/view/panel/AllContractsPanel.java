@@ -25,11 +25,16 @@ public class AllContractsPanel extends JPanel {
             List<ContractResult> contracts =  controller.getAllContracts();
 
             contracts.forEach(contract -> {
-                String apartment = contract.getApartment().getName();
-                String firstname = contract.getRenter().getFirstName();
-                String lastname = contract.getRenter().getLastName();
-                Object[] data = {apartment, firstname, lastname};
-                contractsTable.addRow(data);
+                contractsTable.addRow(
+                        contract.getApartment(),
+                        contract.getRenter().getFirstName(),
+                        contract.getRenter().getLastName(),
+                        contract.getApartment().getAddress(),
+                        contract.getContract().getRefEnregistrement(),
+                        contract.getContract().getWarranty(),
+                        contract.getContract().getDateStart(),
+                        contract.getContract().getDateEnd()
+                );
             });
 
             contractsTable.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);

@@ -11,7 +11,7 @@ public class ContractsAction implements ActionListener {
     private JFrame frame;
 
     public ContractsAction(JFrame frame) {
-        this.frame = frame;
+        setFrame(frame);
     }
 
     @Override
@@ -19,5 +19,9 @@ public class ContractsAction implements ActionListener {
         frame.getContentPane().removeAll();
         frame.setContentPane(new AllContractsPanel(frame));
         frame.setVisible(true);
+    }
+
+    public void setFrame(JFrame frame) {
+        this.frame = frame;
     }
 }

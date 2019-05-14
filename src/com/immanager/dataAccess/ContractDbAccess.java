@@ -3,6 +3,7 @@ package com.immanager.dataAccess;
 import com.immanager.dataAccess.dao.ContractDAO;
 import com.immanager.exception.AddContractException;
 import com.immanager.exception.AllContractException;
+import com.immanager.exception.UpdateContractException;
 import com.immanager.model.Contract;
 
 import java.sql.*;
@@ -105,6 +106,40 @@ public class ContractDbAccess implements ContractDAO {
         }
         catch (SQLException e){
             throw new AddContractException(e.getMessage());
+        }
+    }
+
+    @Override
+    public void updateContract(Contract contract) throws UpdateContractException {
+        try{
+            Connection connection = DataBaseConnection.getInstance().getConnection();
+            String sql = "update contract set date_end = ?, waranty = ?, cpaswaranty = ?, refregistry = ?, apartmentid = ?, renterid = ? where id = ?";
+            PreparedStatement statement = connection.prepareStatement(sql);
+            int i = 1;
+
+            if (contract.getDateEnd() != null){
+                Date endDate = new Date(contract.getDateEnd().getTimeInMillis());
+                statement.setDate(i++, endDate);
+            }
+            else
+                statement.setNull(i++, Types.DATE);
+
+            statement.setDouble(i++, contract.getWarranty());
+            statement.setBoolean(i++, contract.getCpasWarranty());
+
+            if (contract.getRefEnregistrement() != null){
+                statement.setString(i++, contract.getRefEnregistrement());
+            }
+            else
+                statement.setNull(i++, Types.VARCHAR);
+
+            statement.setInt(i++, contract.getApartmentID());
+            statement.setInt(i++, contract.getRenterID());
+            statement.setInt(i, contract.getRenterID());
+
+            statement.executeUpdate();
+        } catch (SQLException e) {
+            throw new UpdateContractException(e.getMessage());
         }
     }
 }

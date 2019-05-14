@@ -35,6 +35,10 @@ public class ApplicationController {
         contractManager.addContract(contract, rentOwed);
     }
 
+    public void updateContract(Contract contract) throws UpdateContractException {
+        contractManager.updateContract(contract);
+    }
+
     public void setContractManager(ContractManager contractManager) {
         this.contractManager = contractManager;
     }
