@@ -3,6 +3,7 @@ package com.immanager.dataAccess;
 import com.immanager.dataAccess.dao.ContractDAO;
 import com.immanager.exception.AddContractException;
 import com.immanager.exception.AllContractException;
+import com.immanager.exception.SetWarrantyException;
 import com.immanager.exception.UpdateContractException;
 import com.immanager.model.Contract;
 
@@ -57,7 +58,7 @@ public class ContractDbAccess implements ContractDAO {
 
                 contracts.add(contract);
             }
-        } catch (SQLException e) {
+        } catch (SQLException | SetWarrantyException e) {
             throw new AllContractException(e.getMessage());
         }
         return contracts;

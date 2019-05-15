@@ -4,6 +4,7 @@ import com.immanager.dataAccess.dao.RentDAO;
 import com.immanager.exception.AddContractException;
 import com.immanager.exception.AddRentOwedException;
 import com.immanager.exception.AllRentException;
+import com.immanager.exception.SetAmountException;
 import com.immanager.model.RentOwed;
 
 import java.sql.*;
@@ -32,7 +33,7 @@ public class RentDbAccess implements RentDAO {
                 ));
             }
         }
-        catch (SQLException e){
+        catch (SQLException | SetAmountException e){
             throw new AllRentException(e.getMessage());
         }
         return rents;

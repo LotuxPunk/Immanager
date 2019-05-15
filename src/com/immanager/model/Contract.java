@@ -1,5 +1,7 @@
 package com.immanager.model;
 
+import com.immanager.exception.SetWarrantyException;
+
 import java.util.GregorianCalendar;
 
 public class Contract {
@@ -14,7 +16,7 @@ public class Contract {
     private Integer guarantee1;
     private Integer guarantee2;
 
-    public Contract(Integer id, GregorianCalendar dateStart, GregorianCalendar dateEnd, Double warranty, Boolean cpasWarranty, String refEnregistrement, Integer apartmentID, Integer renterID, Integer guarantee1, Integer guarantee2) {
+    public Contract(Integer id, GregorianCalendar dateStart, GregorianCalendar dateEnd, Double warranty, Boolean cpasWarranty, String refEnregistrement, Integer apartmentID, Integer renterID, Integer guarantee1, Integer guarantee2) throws SetWarrantyException {
         setId(id);
         setDateStart(dateStart);
         setDateEnd(dateEnd);
@@ -55,7 +57,9 @@ public class Contract {
         return warranty;
     }
 
-    public void setWarranty(Double warranty) {
+    public void setWarranty(Double warranty) throws SetWarrantyException {
+        if(warranty < 0)
+            throw new SetWarrantyException("La guarantie ne peut pas être négative");
         this.warranty = warranty;
     }
 

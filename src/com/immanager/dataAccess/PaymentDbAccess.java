@@ -3,6 +3,7 @@ package com.immanager.dataAccess;
 import com.immanager.dataAccess.dao.PaymentDAO;
 import com.immanager.exception.AllPaymentException;
 import com.immanager.exception.AllPaymentFromApartmentException;
+import com.immanager.exception.SetAmountException;
 import com.immanager.model.Payment;
 import com.immanager.model.PaymentResult;
 import com.immanager.model.Person;
@@ -32,7 +33,7 @@ public class PaymentDbAccess implements PaymentDAO {
                 ));
             }
         }
-        catch (SQLException e){
+        catch (SQLException | SetAmountException e){
             throw new AllPaymentException(e.getMessage());
         }
         return payments;
@@ -76,7 +77,7 @@ public class PaymentDbAccess implements PaymentDAO {
                 payments.add(new PaymentResult(payment, person));
             }
 
-        } catch (SQLException e) {
+        } catch (SQLException | SetAmountException e) {
             throw new AllPaymentFromApartmentException(e.getMessage());
         }
         return payments;

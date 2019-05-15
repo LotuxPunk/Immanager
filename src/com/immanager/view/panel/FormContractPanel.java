@@ -234,7 +234,7 @@ public class FormContractPanel extends JPanel {
                         }
 
                         getFrame().setVisible(true);
-                    } catch (AddContractException | NumberFormatException | AddRentOwedException | UpdateContractException ex) {
+                    } catch (AddContractException | NumberFormatException | AddRentOwedException | UpdateContractException | SetWarrantyException | SetAmountException ex) {
                         JOptionPane.showMessageDialog(null, ex.getMessage());
                     }
                 }
