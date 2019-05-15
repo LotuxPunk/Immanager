@@ -1,7 +1,6 @@
 package com.immanager.view.panel;
 
 import com.immanager.model.Payment;
-import com.immanager.model.RentOwed;
 import com.immanager.model.ShowableRent;
 import com.immanager.view.component.RentTable;
 

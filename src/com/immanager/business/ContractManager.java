@@ -84,7 +84,7 @@ public class ContractManager {
                 do{
                     schedule.add(new ShowableRent(rent, (GregorianCalendar) nextMonth.clone()));
                     nextMonth.add(GregorianCalendar.MONTH, 1);
-                    if (dateOut != null && dateOut.compareTo(nextMonth) >= 0)
+                    if (dateOut != null && dateOut.compareTo(nextMonth) <= 0)
                         break;
                 } while (today.compareTo(nextMonth) >= 0);
             }

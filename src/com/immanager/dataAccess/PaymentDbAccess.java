@@ -50,7 +50,9 @@ public class PaymentDbAccess implements PaymentDAO {
             int i = 1;
             statement.setInt(i++, apartmentid);
             statement.setDate(i++, new Date(firstDate.getTimeInMillis()));
-            statement.setDate(i, new Date(firstDate.getTimeInMillis()));
+            statement.setDate(i, new Date(lastDate.getTimeInMillis()));
+
+            System.out.println(statement);
 
             ResultSet data = statement.executeQuery();
 
