@@ -47,7 +47,7 @@ public class FormContractPanel extends JPanel {
         if (apartments != null && people != null){
 
             if (update == null){
-                lDateStart = new JLabel("Date d'entrée");
+                lDateStart = new JLabel("Date d'entrée *");
                 this.add(lDateStart);
                 dateStart = new JDatePicker();
                 this.add(dateStart);
@@ -58,7 +58,7 @@ public class FormContractPanel extends JPanel {
             dateEnd = new JDatePicker();
             this.add(dateEnd);
 
-            lWaranty = new JLabel("Montant de la garantie");
+            lWaranty = new JLabel("Montant de la garantie *");
             this.add(lWaranty);
             waranty = new JTextField();
             this.add(waranty);
@@ -68,11 +68,11 @@ public class FormContractPanel extends JPanel {
             this.add(cpasWaranty);
 
             if (update == null) {
-                lAmount = new JLabel("Montant du loyer");
+                lAmount = new JLabel("Montant du loyer *");
                 this.add(lAmount);
                 amount = new JTextField();
                 this.add(amount);
-                lCharge = new JLabel("Montant des charges");
+                lCharge = new JLabel("Montant des charges *");
                 this.add(lCharge);
                 charge = new JTextField();
                 this.add(charge);
@@ -84,12 +84,12 @@ public class FormContractPanel extends JPanel {
                 JScrollPane scrollPane = new JScrollPane(guaranteesJList);
                 this.add(scrollPane);
 
-                lApartment = new JLabel("Appartement");
+                lApartment = new JLabel("Appartement *");
                 this.add(lApartment);
                 apartmentJComboBox = new JComboBox<>(apartments);
                 this.add(apartmentJComboBox);
 
-                lRenter = new JLabel("Locataire");
+                lRenter = new JLabel("Locataire *");
                 this.add(lRenter);
                 renter = new JComboBox<>(people);
                 this.add(renter);
@@ -102,6 +102,8 @@ public class FormContractPanel extends JPanel {
 
             confirmButton =  new JButton("Confirmer");
             this.add(confirmButton);
+
+            this.add(new JLabel("* = obligatoire"));
 
             if (update != null){
                 if (update.getContract().getDateEnd() != null){
@@ -135,11 +137,11 @@ public class FormContractPanel extends JPanel {
                             GregorianCalendar dateE = (GregorianCalendar) dateEnd.getModel().getValue();
 
                             if (dateS.compareTo(dateE) > 0)
-                                error.append("La date d'entrée doit être inférieur a la date de sortie");
+                                error.append("La date d'entrée doit être inférieur à la date de sortie");
                         }
                     }
                     else{
-                        error.append("La Date d'entrée est obligatoire").append(System.getProperty("line.separator"));
+                        error.append("La date d'entrée est obligatoire").append(System.getProperty("line.separator"));
                     }
 
                     if (apartmentJComboBox.getSelectedItem() == null)
