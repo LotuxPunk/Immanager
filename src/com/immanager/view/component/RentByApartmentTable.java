@@ -9,7 +9,7 @@ import java.util.GregorianCalendar;
 
 public class RentByApartmentTable extends JTable {
     public RentByApartmentTable() {
-        String[] col = {"FirstName", "LastName", "Amount", "Date"};
+        String[] col = {"Prénom", "Nom", "Montant", "Date"};
         DefaultTableModel tableModel = new DefaultTableModel(col, 0);
 
         setModel(tableModel);

@@ -8,38 +8,38 @@ public class MenuBar extends JMenuBar {
     public MenuBar(JFrame frame) {
 
         //Home
-        JMenu homeMenu = new JMenu("Home");
+        JMenu homeMenu = new JMenu("Accueil");
 
-        JMenuItem homeItem = new JMenuItem("Home");
+        JMenuItem homeItem = new JMenuItem("Accueil");
         homeMenu.add(homeItem);
         homeItem.addActionListener(new HomeAction(frame));
 
-        JMenuItem exitItem = new JMenuItem("Exit");
+        JMenuItem exitItem = new JMenuItem("Quitter");
         homeMenu.add(exitItem);
         exitItem.addActionListener(new ExitAction(frame));
 
         //Views
-        JMenu viewMenu = new JMenu("Views");
+        JMenu viewMenu = new JMenu("Vues");
 
-        JMenuItem contractsViewItem = new JMenuItem("Contracts");
+        JMenuItem contractsViewItem = new JMenuItem("Contrats");
         viewMenu.add(contractsViewItem);
         contractsViewItem.addActionListener(new ContractsAction(frame));
 
-        JMenuItem apartmentsViewItem = new JMenuItem("Apartments");
+        JMenuItem apartmentsViewItem = new JMenuItem("Appartements");
         viewMenu.add(apartmentsViewItem);
         apartmentsViewItem.addActionListener(new ApartmentAction(frame));
 
         //Add
-        JMenu addMenu = new JMenu("Add");
+        JMenu addMenu = new JMenu("Ajout");
 
-        JMenuItem addContractItem = new JMenuItem("Add contract");
+        JMenuItem addContractItem = new JMenuItem("Ajouter un contrat");
         addMenu.add(addContractItem);
         addContractItem.addActionListener(new AddContractMenuAction(frame));
 
         //Search
-        JMenu searchMenu = new JMenu("Search");
+        JMenu searchMenu = new JMenu("Recherche");
 
-        JMenuItem searchPayments = new JMenuItem("Search payments by apartment's name");
+        JMenuItem searchPayments = new JMenuItem("Rechercher les payements par appartement");
         searchMenu.add(searchPayments);
         searchPayments.addActionListener(new SearchPaymentsAction(frame));
 

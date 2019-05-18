@@ -10,7 +10,7 @@ import java.util.GregorianCalendar;
 public class ContractsTable extends JTable {
 
     public ContractsTable() {
-        String[] col = {"Apartment", "FirstName", "LastName", "Address", "Ref registry", "Warranty", "Start Date", "End Date"};
+        String[] col = {"Appartement", "Prénom", "Nom", "Adresse", "Ref enregistrement", "Garantie", "Garantie CPAS", "Date d'entrée", "Date de sortie"};
         DefaultTableModel tableModel = new DefaultTableModel(col, 0);
 
         setModel(tableModel);
@@ -26,13 +26,13 @@ public class ContractsTable extends JTable {
         tableModel.addRow(data);
     }
 
-    public void addRow(Apartment apartment, String firstname, String lastname, String address, String ref, Double warranty, GregorianCalendar startDate, GregorianCalendar endDate){
+    public void addRow(Apartment apartment, String firstname, String lastname, String address, String ref, Double warranty, Boolean cpasWarranty, GregorianCalendar startDate, GregorianCalendar endDate){
         SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
         String endDateFormatted = null;
 
         if (endDate != null)
             endDateFormatted = dateFormat.format(endDate.getTime());
 
-        addRow(new Object[]{apartment, firstname, lastname, address, ref, warranty, dateFormat.format(startDate.getTime()), endDateFormatted});
+        addRow(new Object[]{apartment, firstname, lastname, address, ref, warranty, cpasWarranty, dateFormat.format(startDate.getTime()), endDateFormatted});
     }
 }

@@ -6,8 +6,6 @@ import com.immanager.model.ContractResult;
 import com.immanager.view.component.ContractsTable;
 
 import javax.swing.*;
-import javax.swing.event.ListSelectionEvent;
-import javax.swing.event.ListSelectionListener;
 import java.awt.*;
 import java.util.List;
 
@@ -32,6 +30,7 @@ public class AllContractsPanel extends JPanel {
                         contract.getApartment().getAddress(),
                         contract.getContract().getRefEnregistrement(),
                         contract.getContract().getWarranty(),
+                        contract.getContract().getCpasWarranty(),
                         contract.getContract().getDateStart(),
                         contract.getContract().getDateEnd()
                 );
