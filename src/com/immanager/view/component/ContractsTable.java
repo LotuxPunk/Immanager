@@ -35,4 +35,16 @@ public class ContractsTable extends JTable {
 
         addRow(new Object[]{apartment, firstname, lastname, address, ref, warranty, cpasWarranty, dateFormat.format(startDate.getTime()), endDateFormatted});
     }
+
+    @Override
+    public Class<?> getColumnClass(int column) {
+        switch (column){
+            case 5:
+                return Double.class;
+            case 6:
+                return Boolean.class;
+            default:
+                  return String.class;
+        }
+    }
 }

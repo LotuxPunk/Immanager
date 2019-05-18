@@ -19,9 +19,8 @@ public class AllApartmentPanel extends JPanel {
         setController(new ApplicationController());
         setLayout(new BorderLayout());
         try{
+            ApartmentTable apartmentTable = new ApartmentTable();
             ArrayList<Apartment> apartments = controller.getAllApartment();
-            String[] col = {"Name", "City", "Address", "Postal Code"};
-            DefaultTableModel tableModel = new DefaultTableModel(col, 0);
 
             for (Apartment apartment : apartments) {
                 String name = apartment.getName();
@@ -29,12 +28,10 @@ public class AllApartmentPanel extends JPanel {
                 String address = apartment.getAddress();
                 int postalCode = apartment.getPostalCode();
 
-                Object[] data = {name, city, address, postalCode};
-                tableModel.addRow(data);
+                apartmentTable.addRow(name, city, address, postalCode);
             }
 
-            ApartmentTable table = new ApartmentTable(tableModel);
-            this.add(new JScrollPane(table));
+            this.add(new JScrollPane(apartmentTable));
 
         } catch (AllApartmentException e) {
             JOptionPane.showMessageDialog(this,e.getMessage());
