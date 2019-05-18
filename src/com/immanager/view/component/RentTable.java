@@ -27,4 +27,15 @@ public class RentTable extends JTable {
         SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
         addRow(new Object[]{dateFormat.format(date.getTime()), amount});
     }
+
+    @Override
+    public Class<?> getColumnClass(int column) {
+        switch (column){
+            case 1:
+                return Double.class;
+            default:
+                return String.class;
+        }
+
+    }
 }

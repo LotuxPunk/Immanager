@@ -6,7 +6,6 @@ import com.immanager.model.Apartment;
 import com.immanager.view.component.ApartmentTable;
 
 import javax.swing.*;
-import javax.swing.table.DefaultTableModel;
 import java.awt.*;
 import java.util.ArrayList;
 

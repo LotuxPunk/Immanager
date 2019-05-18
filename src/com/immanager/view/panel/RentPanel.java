@@ -5,6 +5,7 @@ import com.immanager.model.ShowableRent;
 import com.immanager.view.component.RentTable;
 
 import javax.swing.*;
+import javax.swing.border.TitledBorder;
 import java.awt.*;
 import java.util.ArrayList;
 
@@ -22,10 +23,12 @@ public class RentPanel extends JPanel {
         RentTable paymentsTable = new RentTable();
 
         JScrollPane jScrollPanePayment = new JScrollPane(paymentsTable);
+        jScrollPanePayment.setBorder(BorderFactory.createTitledBorder(BorderFactory.createEtchedBorder(),"Payements", TitledBorder.CENTER, TitledBorder.TOP));
         JScrollPane jScrollPaneRent =  new JScrollPane(rentsTable);
+        jScrollPaneRent.setBorder(BorderFactory.createTitledBorder(BorderFactory.createEtchedBorder(),"Loyers dû", TitledBorder.CENTER, TitledBorder.TOP));
 
         splitPane = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, true, jScrollPaneRent, jScrollPanePayment);
-        splitPane.setDividerLocation(.5);
+        splitPane.setDividerLocation(300);
         splitPane.setOneTouchExpandable(true);
 
         rentOweds.forEach(showableRent -> rentsTable.addRow(showableRent.getDate(), showableRent.getRent().getAmount().getTotal()));

@@ -1,11 +1,7 @@
 package com.immanager.view.component;
 
-import com.immanager.model.Apartment;
-
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
-import java.text.SimpleDateFormat;
-import java.util.GregorianCalendar;
 
 public class ApartmentTable extends JTable {
 
